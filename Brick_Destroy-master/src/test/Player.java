@@ -23,10 +23,10 @@ import java.awt.geom.Rectangle2D;
 
 
 public class Player {
-
+    static PlayerColour obj = new PlayerColour();
+    public static final Color INNER_COLOR = obj.main;//this is to change colour
 
     public static final Color BORDER_COLOR = Color.GREEN.darker().darker();
-    public static final Color INNER_COLOR = Color.GREEN;
 
     private static final int DEF_MOVE_AMOUNT = 5;
 
