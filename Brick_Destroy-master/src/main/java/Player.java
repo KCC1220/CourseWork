@@ -15,18 +15,16 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package test;
+package main.java;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 
 
 public class Player {
-    static PlayerColour obj = new PlayerColour();
-    public static final Color INNER_COLOR = obj.main;//this is to change colour
 
-    public static final Color BORDER_COLOR = Color.GREEN.darker().darker();
+
+
+
 
     private static final int DEF_MOVE_AMOUNT = 5;
 
@@ -45,6 +43,7 @@ public class Player {
         max = min + container.width - width;
 
     }
+    public Player(){}
 
     private Rectangle makeRectangle(int width,int height){
         Point p = new Point((int)(ballPoint.getX() - (width / 2)),(int)ballPoint.getY());
