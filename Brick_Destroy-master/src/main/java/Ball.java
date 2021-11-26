@@ -25,7 +25,7 @@ abstract public class Ball {
     private int speedX;
     private int speedY;
 
-    public Ball(Point2D center,int radiusA,int radiusB,Color inner,Color border){
+    public Ball(Point2D center,int radiusA,int radiusB){
         this.center = center;
 
         up = new Point2D.Double();

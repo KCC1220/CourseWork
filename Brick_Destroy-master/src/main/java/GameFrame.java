@@ -17,10 +17,13 @@
  */
 package main.java;
 
+import javafx.scene.Parent;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
+import java.io.IOException;
 
 
 public class GameFrame extends JFrame implements WindowFocusListener {
@@ -79,6 +82,15 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.setUndecorated(false);
         this.addWindowFocusListener(this);
     }
+    public void enableInfo(){
+        this.dispose();
+        this.remove(homeMenu);
+        Info info = new Info();
+        this.setUndecorated(false);
+        this.addWindowFocusListener(this);
+    }
+
+
 
 
 

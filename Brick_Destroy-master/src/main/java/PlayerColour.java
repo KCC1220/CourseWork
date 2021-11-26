@@ -6,74 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-//public class PlayerColour extends Application {
-//    static Color main = Color.MAGENTA;
-//
-//    public static void main(String[] args) {
-//        launch(args);
-//    }
-//    @Override
-//    public void start(Stage primaryStage) {
-//        primaryStage.setTitle("Player Colour");
-//        Pane root = new Pane();
-//        Text func1 = new Text();
-//        func1.setText("Changing the colour of the player\n\n");
-//        func1.setFont(Font.font("Verdana",48));
-//
-//
-//        javafx.scene.control.Button blue = new javafx.scene.control.Button("BLUE");
-//        blue.setStyle("-fx-background-color:#0000FF");
-//        blue.setMaxSize(200,48);
-//        blue.setOnAction(event -> {
-//            setColor(Color.BLUE);
-//        });
-//        javafx.scene.control.Button yellow = new javafx.scene.control.Button("YELLOW");
-//        yellow.setStyle("-fx-background-color:#FFFF00");
-//        yellow.setMaxSize(200,48);
-//        yellow.setOnAction(event -> {
-//            setColor(Color.YELLOW);
-//        });
-//        javafx.scene.control.Button green = new javafx.scene.control.Button("GREEN (DEFAULT)");
-//        green.setStyle("-fx-background-color:#00FF00");
-//        green.setMaxSize(200,48);
-//        green.setOnAction(event->{
-//            setColor(Color.GREEN);
-//        });
-//        javafx.scene.control.Button cyan = new javafx.scene.control.Button("CYAN");
-//        green.setStyle("-fx-background-color:#00FFFF");
-//        green.setMaxSize(200,48);
-//        cyan.setOnAction(event -> {
-//            setColor(Color.CYAN);
-//        });
-//        javafx.scene.control.Button red = new javafx.scene.control.Button("RED");
-//        green.setStyle("-fx-background-color:#FF0000");
-//        green.setMaxSize(200,48);
-//        red.setOnAction(event->{
-//            setColor(Color.RED);
-//        });
-//        javafx.scene.control.Button magenta = new Button("MAGENTA");
-//        green.setStyle("-fx-background-color:#FF00FF");
-//        green.setMaxSize(200,48);
-//        magenta.setOnAction(event->{
-//            setColor(Color.MAGENTA);
-//        });
-//        VBox vbox = new VBox();
-//        vbox.getChildren().addAll(blue,yellow,green,cyan,red,magenta);
-//
-//
-//        primaryStage.setScene(new Scene(root, 400, 400));
-//        primaryStage.show();
-//    }
-//
-//    public void setColor( Color Color){
-//        main = Color;
-//
-//    }
-//
-//
-//}
 public class PlayerColour extends JComponent implements ActionListener{
-    public static Color colour;
+    public static Color colour=Color.green;
+    public static Color b_colour = Color.BLUE;
 
 
 
@@ -84,90 +19,151 @@ public class PlayerColour extends JComponent implements ActionListener{
     private static final String C_Blue = "Blue";
     private static final String C_Magenta = "Magenta";
     private static final String C_Pink = "Pink";
-    HomeMenu homeMenu;
+
     GameFrame gameframe;
 
 
-    private static final int DEF_WIDTH = 450;
-    private static final int DEF_HEIGHT = 300;
-
-    private static final Color BG_COLOR = Color.WHITE;
+    public static final int DEF_WIDTH = 450;
+    public static final int DEF_HEIGHT = 300;
 
 
-    JButton red = new JButton(C_Red);
-    JButton yellow = new JButton(C_Yellow);
-    JButton green = new JButton(C_Green);
-    JButton cyan = new JButton(C_Cyan);
-    JButton blue = new JButton(C_Blue);
-    JButton magenta = new JButton(C_Magenta);
-    JButton pink = new JButton(C_Pink);
+
+
+    JButton p_red=new JButton(C_Red);
+    JButton p_yellow = new JButton(C_Yellow);
+    JButton p_green = new JButton(C_Green);
+    JButton p_cyan = new JButton(C_Cyan);
+    JButton p_blue = new JButton(C_Blue);
+    JButton p_magenta = new JButton(C_Magenta);
+    JButton p_pink = new JButton(C_Pink);
+    JButton b_red = new JButton((C_Red));
+    JButton b_yellow = new JButton(C_Yellow);
+    JButton b_green = new JButton(C_Green);
+    JButton b_cyan = new JButton(C_Cyan);
+    JButton b_blue = new JButton(C_Blue);
+    JButton b_magenta = new JButton(C_Magenta);
+    JButton b_pink = new JButton(C_Pink);
     JFrame frame;
-    JButton start = new JButton("Start");
+    JButton start = new JButton("START");
+    JLabel label_p;
+    JLabel label_b;
 
 
 
     public PlayerColour(){
-            frame = new JFrame();
-            JPanel panel = new JPanel();
-            this.setPreferredSize(new Dimension(DEF_WIDTH,DEF_HEIGHT));
 
-            red.setBounds(50,16,2,4);
-            red.setBackground(Color.red);
-            red.setFocusable(false);
-            red.addActionListener(this);
-            JLabel label = new JLabel("Choosing the colour of player\n");
-            yellow.setBounds(50,16,2,4);
-            yellow.setBackground(Color.yellow);
-            yellow.setFocusable(false);
-            yellow.addActionListener(this);
-            green.setBounds(50,16,2,4);
-            green.setBackground(Color.green);
-            green.setFocusable(false);
-            green.addActionListener(this);
-            cyan.setBounds(50,16,2,4);
-            cyan.setBackground(Color.cyan);
-            cyan.setFocusable(false);
-            cyan.addActionListener(this);
-            blue.setBounds(50,16,2,4);
-            blue.setBackground(Color.blue);
-            blue.setFocusable(false);
-            blue.addActionListener(this);
-            magenta.setBounds(50,16,2,4);
-            magenta.setBackground(Color.magenta);
-            magenta.setFocusable(false);
-            magenta.addActionListener(this);
-            pink.setBounds(50,16,2,4);
-            pink.setBackground(Color.pink);
-            pink.setFocusable(false);
-            pink.addActionListener(this);
+
+
+            p_red.setBounds(10,20,2,4);
+            p_red.setBackground(Color.red);
+            p_red.setFocusable(false);
+            p_red.addActionListener(this);
+            JLabel label = new JLabel("Player:");
+            p_yellow.setBounds(10,25,2,4);
+            p_yellow.setBackground(Color.yellow.darker());
+            p_yellow.setFocusable(false);
+            p_yellow.addActionListener(this);
+            p_green.setBounds(10,30,2,4);
+            p_green.setBackground(Color.green);
+            p_green.setFocusable(false);
+            p_green.addActionListener(this);
+            p_cyan.setBounds(10,35,2,4);
+            p_cyan.setBackground(Color.cyan);
+            p_cyan.setFocusable(false);
+            p_cyan.addActionListener(this);
+            p_blue.setBounds(10,40,2,4);
+            p_blue.setBackground(Color.blue);
+            p_blue.setFocusable(false);
+            p_blue.addActionListener(this);
+            p_magenta.setBounds(10,45,2,4);
+            p_magenta.setBackground(Color.magenta);
+            p_magenta.setFocusable(false);
+            p_magenta.addActionListener(this);
+            p_pink.setBounds(10,50,2,4);
+            p_pink.setBackground(Color.pink);
+            p_pink.setFocusable(false);
+            p_pink.addActionListener(this);
             start.setBounds(50,16,2,4);
             start.setFocusable(false);
             start.addActionListener(this);
+        b_red.setBounds(30,20,2,4);
+        b_red.setBackground(Color.red);
+        b_red.setFocusable(false);
+        b_red.addActionListener(this);
+        JLabel label2 = new JLabel("                 Ball:\n");
+        b_yellow.setBounds(30,25,2,4);
+        b_yellow.setBackground(Color.yellow.darker());
+        b_yellow.setFocusable(false);
+        b_yellow.addActionListener(this);
+        b_green.setBounds(30,30,2,4);
+        b_green.setBackground(Color.green);
+        b_green.setFocusable(false);
+        b_green.addActionListener(this);
+        b_cyan.setBounds(30,35,2,4);
+        b_cyan.setBackground(Color.cyan);
+        b_cyan.setFocusable(false);
+        b_cyan.addActionListener(this);
+        b_blue.setBounds(30,40,2,4);
+        b_blue.setBackground(Color.blue);
+        b_blue.setFocusable(false);
+        b_blue.addActionListener(this);
+        b_magenta.setBounds(30,45,2,4);
+        b_magenta.setBackground(Color.magenta);
+        b_magenta.setFocusable(false);
+        b_magenta.addActionListener(this);
+        b_pink.setBounds(30,50,2,4);
+        b_pink.setBackground(Color.pink);
+        b_pink.setFocusable(false);
+        b_pink.addActionListener(this);
+        label_b = new JLabel( "          BLUE");
+        label_p = new JLabel("         GREEN");
+        JPanel panel = new JPanel();
+
             panel.add(label);
-            panel.add(red);
-            panel.add(yellow);
-            panel.add(green);
-            panel.add(cyan);
-            panel.add(blue);
-            panel.add(magenta);
-            panel.add(pink);
+            panel.add(label2);
+
+            panel.add(p_red);
+            panel.add(b_red);
+            panel.add(p_yellow);
+            panel.add(b_yellow);
+            panel.add(p_green);
+            panel.add(b_green);
+            panel.add(p_cyan);
+            panel.add(b_cyan);
+            panel.add(p_blue);
+            panel.add(b_blue);
+            panel.add(p_magenta);
+            panel.add(b_magenta);
+            panel.add(p_pink);
+            panel.add(b_pink);
+            panel.add(label_p);
+            panel.add(label_b);
             panel.add(start);
+        frame = new JFrame("CC");
+        frame.setContentPane(panel);
 
-            frame.add(panel,BorderLayout.CENTER);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            frame.setTitle("Choosing Colour");
-            frame.setSize(DEF_WIDTH,DEF_HEIGHT);
+        frame.setPreferredSize(new Dimension(200,350));
+            frame.pack();
+            frame.setResizable(false);
             autoLocate(frame);
 
             frame.setVisible(true);
-            System.out.println(colour);
 
 
 
     }
     public static Color colouring(){
         return colour;
+    }
+    public static Color b_colour(){
+        return b_colour;
+    }
+    public void updatePlayerColour(String Color){
+        label_p.setText(Color);
+    }
+    public void updateBallColor(String Color){
+        label_b.setText(Color);
     }
 
     private void autoLocate(JFrame frame){
@@ -188,32 +184,74 @@ public class PlayerColour extends JComponent implements ActionListener{
             gameframe.enableGameBoard();
 
         }
-        if (e.getSource() == yellow){
-            colour = Color.yellow;
+        if (e.getSource() == p_yellow){
+            colour = Color.yellow.darker();
+            updatePlayerColour("     YELLOW");
 
         }
-        if (e.getSource() == blue){
+        if (e.getSource() == p_blue){
             colour = Color.blue;
+            updatePlayerColour("           BLUE");
 
         }
-        if (e.getSource() == green){
+        if (e.getSource() == p_green){
             colour = Color.green;
+            updatePlayerColour("       GREEN");
 
         }
-        if (e.getSource() == cyan){
+        if (e.getSource() == p_cyan){
             colour = Color.cyan;
+            updatePlayerColour("        CYAN");
 
         }
-        if (e.getSource() == red){
+        if (e.getSource() == p_red){
             colour = Color.red;
+            updatePlayerColour("           RED");
 
         }
-        if (e.getSource() == magenta){
+        if (e.getSource() == p_magenta){
             colour = Color.magenta;
+            updatePlayerColour("MAGENTA");
 
         }
-        if (e.getSource() == pink){
+        if (e.getSource() == p_pink){
             colour = Color.pink;
+            updatePlayerColour("           PINK");
+
+        }
+        if (e.getSource() == b_yellow){
+            b_colour = Color.yellow.darker();
+            updateBallColor("     YELLOW");
+
+        }
+        if (e.getSource() == b_blue){
+            b_colour = Color.blue;
+            updateBallColor("       BLUE");
+
+        }
+        if (e.getSource() == b_green){
+            b_colour = Color.green;
+            updateBallColor("   GREEN     ");
+
+        }
+        if (e.getSource() == b_cyan){
+            b_colour = Color.cyan;
+            updateBallColor("CYAN        ");
+
+        }
+        if (e.getSource() == b_red){
+            b_colour = Color.red;
+            updateBallColor("RED        ");
+
+        }
+        if (e.getSource() == b_magenta){
+            b_colour = Color.magenta;
+            updateBallColor("MAGENTA");
+
+        }
+        if (e.getSource() == b_pink){
+            b_colour = Color.pink;
+            updateBallColor("PINK        ");
 
         }
     }

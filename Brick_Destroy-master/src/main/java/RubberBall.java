@@ -26,12 +26,12 @@ public class RubberBall extends Ball {
     static BallColour obj = new BallColour();
 
     private static final int DEF_RADIUS = 10;
-    private static final Color DEF_INNER_COLOR = obj.main;//colour of ball
-    private static Color DEF_BORDER_COLOR = DEF_INNER_COLOR.darker().darker();
+//    private static final Color DEF_INNER_COLOR = obj.main;//colour of ball
+//    private static Color DEF_BORDER_COLOR = DEF_INNER_COLOR.darker().darker();
 
 
     public RubberBall(Point2D center){
-        super(center, DEF_RADIUS, DEF_RADIUS, DEF_INNER_COLOR, DEF_BORDER_COLOR);
+        super(center, DEF_RADIUS, DEF_RADIUS);
     }
 
 

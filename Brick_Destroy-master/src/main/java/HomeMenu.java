@@ -297,7 +297,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
             System.exit(0);
         }
         else if (settingButton.contains(p)){
-            owner.enableSetting();
+            owner.enableInfo();
         }
     }
 
