@@ -21,6 +21,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.FontRenderContext;
+import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import static main.java.HighScore.highScore;
 
 
 public class GameBoard extends JComponent implements KeyListener,MouseListener,MouseMotionListener {
@@ -31,9 +36,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private static final String PAUSE = "Pause Menu";
     private static final int TEXT_SIZE = 30;
     private static final Color MENU_COLOR = new Color(0,255,0);
-
-    long [] startTime = {0,0,0};
-    long [] endTime={0,0,0};
 
 
     private static final int DEF_WIDTH = 600;
@@ -58,14 +60,17 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     private DebugConsole debugConsole;
 
-    int i=0;
-    int j=0;
-    float totalTime;
+    timer time = new timer();
+    String stopWatch;
+
+    Record record = new Record();
+    HighScore hs = new HighScore();
+    static int score;
+
 
 
     public GameBoard(JFrame owner){
         super();
-        totalTime=0;
         strLen = 0;
 
         showPauseMenu = false;
@@ -82,34 +87,38 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         gameTimer = new Timer(10,e ->{
             wall.move();
             wall.findImpacts();
-            message = String.format("Bricks: %d Balls %d",wall.getBrickCount(),wall.getBallCount());
+            message = String.format("Bricks: %d Balls %d"+ "   High Score:"+ highScore,wall.getBrickCount(),wall.getBallCount());
             if(wall.isBallLost()){
                 if(wall.ballEnd()){
-                    endTime[i]=System.currentTimeMillis();
-                    totalTime+=(float)(endTime[0]-startTime[0]);
-                    totalTime+=(float)(endTime[1]-startTime[1]);
-                    totalTime+=(float)(endTime[2]-startTime[2]);
-                    System.out.println(totalTime/1000);
-
-
                     wall.wallReset();
-                    message = "Game over";
+                    message = "Game Over";
                 }
-                endTime[i] = System.currentTimeMillis();
-                i++;
                 wall.ballReset();
                 gameTimer.stop();
+                time.stop();
             }
             else if(wall.isDone()){
                 if(wall.hasLevel()){
-                    message = "Go to Next Level";
+                    time.stop();
+                    stopWatch = time.timeInString();
+                    System.out.println(time.elapsedTime/1000);
+                    hs.CheckScore(time.elapsedTime/1000);
+                    try {
+                        record.write("\n"+stopWatch);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                    message = "Go to Next Level   Time Taken: "+stopWatch+"     High Score: "+highScore;
+                    time.reset();
                     gameTimer.stop();
                     wall.ballReset();
                     wall.wallReset();
                     wall.nextLevel();
                 }
                 else{
-                    message = "ALL WALLS DESTROYED";
+                    time.stop();
+                    stopWatch = time.timeInString();
+                    message = String.format("ALL WALLS DESTROYED   Time Taken: "+stopWatch+"     High Score: "+highScore);
                     gameTimer.stop();
                 }
             }
@@ -129,6 +138,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
     }
+
 
 
     public void paint(Graphics g){
@@ -295,19 +305,25 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             case KeyEvent.VK_ESCAPE:
                 showPauseMenu = !showPauseMenu;
                 repaint();
+                time.stop();
                 gameTimer.stop();
                 break;
             case KeyEvent.VK_SPACE:
-                if(!showPauseMenu)
-                    if(gameTimer.isRunning())
+
+                if(!showPauseMenu) {
+                    if(gameTimer.isRunning()) {
+                        time.stop();
                         gameTimer.stop();
-
-
-                    else
-                        startTime[j]=System.currentTimeMillis();
-                        j++;
+                        System.out.println(time.timeInString());
+                    }
+                    else {
                         gameTimer.start();
+                        time.start();
+                    }
+                }
+
                 break;
+
             case KeyEvent.VK_F1:
                 if(keyEvent.isAltDown() && keyEvent.isShiftDown())
                     debugConsole.setVisible(true);

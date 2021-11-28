@@ -274,6 +274,7 @@ public class Wall {
         bricks = levels[level++];
         this.brickCount = bricks.length;
     }
+    public int getLevel(){return level;}
 
     public boolean hasLevel(){
         return level < levels.length;

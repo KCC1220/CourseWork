@@ -17,14 +17,42 @@
  */
 package main.java;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 
 public class GraphicsMain {
-
-    public static void main(String[] args){
+    static String [] values;
+    static List list= new List();
+    static String line ="";
+    static String path = "Brick_Destroy-master/src/main/resources/score.txt";
+    public static void main(String[] args) throws Exception {
 
         EventQueue.invokeLater(() -> new GameFrame().initialize());
+        FileReader file = new FileReader(path);
+        BufferedReader bf = new BufferedReader(file);
+        String st = bf.readLine();
+        Audio audio = new Audio();
+        audio.call();
+        while((st=bf.readLine())!=null){
+            StringTokenizer stn = new StringTokenizer(st);
+            String format = stn.nextToken();
+            int totalSecond = Integer.parseInt(stn.nextToken());
+
+            System.out.println(totalSecond);
+        }
+
+
+
+
     }
+
 
 }
