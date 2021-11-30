@@ -23,7 +23,7 @@ import java.awt.geom.Point2D;
 
 
 public class RubberBall extends Ball {
-    static BallColour obj = new BallColour();
+
 
     private static final int DEF_RADIUS = 10;
 //    private static final Color DEF_INNER_COLOR = obj.main;//colour of ball

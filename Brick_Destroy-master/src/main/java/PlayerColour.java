@@ -43,6 +43,7 @@ public class PlayerColour extends JComponent implements ActionListener{
     JButton b_blue = new JButton(C_Blue);
     JButton b_magenta = new JButton(C_Magenta);
     JButton b_pink = new JButton(C_Pink);
+    JButton arcade = new JButton("Arcade");
     JFrame frame;
     JButton start = new JButton("START");
     JLabel label_p;
@@ -86,6 +87,9 @@ public class PlayerColour extends JComponent implements ActionListener{
             start.setBounds(50,16,2,4);
             start.setFocusable(false);
             start.addActionListener(this);
+        arcade.setBounds(50,16,2,4);
+        arcade.setFocusable(false);
+        arcade.addActionListener(this);
         b_red.setBounds(30,20,2,4);
         b_red.setBackground(Color.red);
         b_red.setFocusable(false);
@@ -139,6 +143,7 @@ public class PlayerColour extends JComponent implements ActionListener{
             panel.add(label_p);
             panel.add(label_b);
             panel.add(start);
+            panel.add(arcade);
         frame = new JFrame("CC");
         frame.setContentPane(panel);
 
@@ -182,6 +187,13 @@ public class PlayerColour extends JComponent implements ActionListener{
             frame.dispose();
             gameframe = new GameFrame();
             gameframe.enableGameBoard();
+
+        }
+        if(e.getSource() == arcade)
+        {
+            frame.dispose();
+            gameframe = new GameFrame();
+            gameframe.enableArcadeGameBoard();
 
         }
         if (e.getSource() == p_yellow){

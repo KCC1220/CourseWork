@@ -33,26 +33,31 @@ public class GraphicsMain {
     static List list= new List();
     static String line ="";
     static String path = "Brick_Destroy-master/src/main/resources/score.txt";
+    static Audio thread1 = new Audio();
     public static void main(String[] args) throws Exception {
 
         EventQueue.invokeLater(() -> new GameFrame().initialize());
         FileReader file = new FileReader(path);
         BufferedReader bf = new BufferedReader(file);
         String st = bf.readLine();
-        Audio audio = new Audio();
-        audio.call();
-        while((st=bf.readLine())!=null){
-            StringTokenizer stn = new StringTokenizer(st);
-            String format = stn.nextToken();
-            int totalSecond = Integer.parseInt(stn.nextToken());
+        startBGM();
 
-            System.out.println(totalSecond);
-        }
+
 
 
 
 
     }
+    public static void startBGM(){
+        thread1.run();
+    }
+    public static void stopBGM() throws InterruptedException {
+        System.out.println("Itu Dia");
+        Audio.clip.stop();
+    }
+
+
+
 
 
 }

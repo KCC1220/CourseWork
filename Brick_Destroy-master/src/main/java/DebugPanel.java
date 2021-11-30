@@ -55,6 +55,25 @@ public class DebugPanel extends JPanel {
         this.add(ballYSpeed);
 
     }
+    public DebugPanel(Wall wall,String arcade){
+
+        this.wall = wall;
+
+        initialize();
+
+        skipLevel = makeButton("Skip Level",e -> wall.nextArcadeLevel());
+        resetBalls = makeButton("Reset Balls",e -> wall.resetBallCount());
+
+        ballXSpeed = makeSlider(-4,4,e -> wall.setBallXSpeed(ballXSpeed.getValue()));
+        ballYSpeed = makeSlider(-4,4,e -> wall.setBallYSpeed(ballYSpeed.getValue()));
+
+        this.add(skipLevel);
+        this.add(resetBalls);
+
+        this.add(ballXSpeed);
+        this.add(ballYSpeed);
+
+    }
 
     private void initialize(){
         this.setBackground(DEF_BKG);

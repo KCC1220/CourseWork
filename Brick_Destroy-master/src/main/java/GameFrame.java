@@ -31,6 +31,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     private static final String DEF_TITLE = "Brick Destroy";
 
     private GameBoard gameBoard;
+    private ArcadeLevel arcadeLevel;
     private HomeMenu homeMenu;
 
     private boolean gaming;
@@ -43,6 +44,8 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.setLayout(new BorderLayout());
 
         gameBoard = new GameBoard(this);
+        arcadeLevel = new ArcadeLevel(this);
+
 
 
         homeMenu = new HomeMenu(this,new Dimension(450,300));
@@ -72,6 +75,17 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.addWindowFocusListener(this);
 
     }
+    public void enableArcadeGameBoard(){
+        this.dispose();
+        this.remove(homeMenu);
+        this.add(arcadeLevel,BorderLayout.CENTER);
+        this.setUndecorated(false);
+        initialize();
+        /*to avoid problems with graphics focus controller is added here*/
+        this.addWindowFocusListener(this);
+
+    }
+
 
 
     public void enableSetting(){
@@ -119,6 +133,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     public void windowLostFocus(WindowEvent windowEvent) {
         if(gaming)
             gameBoard.onLostFocus();
+            arcadeLevel.onLostFocus();
 
     }
 }

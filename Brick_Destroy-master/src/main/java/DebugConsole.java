@@ -30,7 +30,9 @@ public class DebugConsole extends JDialog implements WindowListener{
     private JFrame owner;
     private DebugPanel debugPanel;
     private GameBoard gameBoard;
+    private ArcadeLevel arcadeLevel;
     private Wall wall;
+    private int type= 0;
 
 
     public DebugConsole(JFrame owner, Wall wall, GameBoard gameBoard){
@@ -42,7 +44,19 @@ public class DebugConsole extends JDialog implements WindowListener{
 
         debugPanel = new DebugPanel(wall);
         this.add(debugPanel,BorderLayout.CENTER);
+        type =0;
 
+        this.pack();
+    }
+    public DebugConsole(JFrame owner, Wall wall, ArcadeLevel arcadeLevel){
+
+        this.wall = wall;
+        this.owner = owner;
+        this.arcadeLevel = arcadeLevel;
+        initialize();
+        debugPanel = new DebugPanel(wall,"test");
+        this.add(debugPanel,BorderLayout.CENTER);
+        type=1;
 
         this.pack();
     }
@@ -71,7 +85,8 @@ public class DebugConsole extends JDialog implements WindowListener{
 
     @Override
     public void windowClosing(WindowEvent windowEvent) {
-        gameBoard.repaint();
+        if(type==0){gameBoard.repaint();}
+        else if(type==1){arcadeLevel.repaint();};
     }
 
     @Override

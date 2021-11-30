@@ -25,6 +25,7 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static main.java.GraphicsMain.thread1;
 import static main.java.HighScore.highScore;
 
 
@@ -34,6 +35,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private static final String RESTART = "Restart";
     private static final String EXIT = "Exit";
     private static final String PAUSE = "Pause Menu";
+    private static String MUTE ="BGM";
     private static final int TEXT_SIZE = 30;
     private static final Color MENU_COLOR = new Color(0,255,0);
 
@@ -56,6 +58,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private Rectangle continueButtonRect;
     private Rectangle exitButtonRect;
     private Rectangle restartButtonRect;
+    private Rectangle muteButton;
     private int strLen;
 
     private DebugConsole debugConsole;
@@ -65,7 +68,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     Record record = new Record();
     HighScore hs = new HighScore();
-    static int score;
+    static int audio=1;
 
 
 
@@ -271,7 +274,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         g2d.drawString(RESTART,x,y);
 
-        y *= 3.0/2;
+        y *= 1.5;
 
         if(exitButtonRect == null){
             exitButtonRect = (Rectangle) continueButtonRect.clone();
@@ -280,6 +283,14 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         g2d.drawString(EXIT,x,y);
 
+        y*=1.3;
+
+        if(muteButton == null){
+            muteButton = (Rectangle) continueButtonRect.clone();
+            muteButton.setLocation(x,y-muteButton.height);
+        }
+
+        g2d.drawString(MUTE,x,y);
 
 
         g2d.setFont(tmpFont);
@@ -340,24 +351,38 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
-        if(!showPauseMenu)
+        if (!showPauseMenu)
             return;
-        if(continueButtonRect.contains(p)){
+        if (continueButtonRect.contains(p)) {
             showPauseMenu = false;
             repaint();
-        }
-        else if(restartButtonRect.contains(p)){
+        } else if (restartButtonRect.contains(p)) {
             message = "Restarting Game...";
             wall.ballReset();
             wall.wallReset();
             showPauseMenu = false;
             repaint();
-        }
-        else if(exitButtonRect.contains(p)){
+        } else if (exitButtonRect.contains(p)) {
             System.exit(0);
+        } else if (muteButton.contains(p)) {
+            if (audio == 1) {
+                try {
+                    GraphicsMain.stopBGM();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                MUTE = "Un-mute BGM";
+                audio=0;
+
+            }else if(audio==0) {
+                GraphicsMain.startBGM();
+                MUTE="Mute BGM";
+                audio=1;
+            }
+            }
+
         }
 
-    }
 
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
@@ -388,7 +413,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     public void mouseMoved(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
         if(exitButtonRect != null && showPauseMenu) {
-            if (exitButtonRect.contains(p) || continueButtonRect.contains(p) || restartButtonRect.contains(p))
+            if (exitButtonRect.contains(p) || continueButtonRect.contains(p) || restartButtonRect.contains(p) || muteButton.contains(p))
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             else
                 this.setCursor(Cursor.getDefaultCursor());
