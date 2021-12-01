@@ -28,17 +28,13 @@ public class DebugPanel extends JPanel {
     private static final Color DEF_BKG = Color.WHITE;
 
 
-    private JButton skipLevel;
-    private JButton resetBalls;
+    private final JButton skipLevel;
+    private final JButton resetBalls;
 
     private JSlider ballXSpeed;
     private JSlider ballYSpeed;
 
-    private Wall wall;
-
     public DebugPanel(Wall wall){
-
-        this.wall = wall;
 
         initialize();
 
@@ -56,8 +52,6 @@ public class DebugPanel extends JPanel {
 
     }
     public DebugPanel(Wall wall,String arcade){
-
-        this.wall = wall;
 
         initialize();
 
