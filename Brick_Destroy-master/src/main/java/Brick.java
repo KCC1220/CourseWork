@@ -35,7 +35,7 @@ abstract public class Brick  {
 
     private boolean broken;
 
-    public Brick( Point pos,Dimension size,Color border,Color inner,int strength){
+    public Brick( String name,Point pos,Dimension size,Color border,Color inner,int strength){
         rnd = new Random();
         broken = false;
         brickFace = makeBrickFace(pos,size);
