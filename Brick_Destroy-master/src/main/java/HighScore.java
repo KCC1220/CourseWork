@@ -16,7 +16,7 @@ public class HighScore {
     }
 
     public int GetHighScoreLvl(){
-        FileReader readFile=null;
+        FileReader readFile;
         BufferedReader reader=null;
 
         try {
@@ -38,9 +38,9 @@ public class HighScore {
         }
     }
 
-    public void CheckScore(int score,int level){
+    public void CheckScore(int score){
         String latest;
-        File scoreFile = null;
+        File scoreFile;
         if (score < highScore){
             highScore = score;
             latest = String.valueOf(highScore);

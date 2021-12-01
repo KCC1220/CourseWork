@@ -28,7 +28,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
+
 
 
 public class HomeMenu extends JComponent implements MouseListener, MouseMotionListener {
@@ -41,29 +41,24 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private static final String SETTING_TEXT = "Info";
 
     private static final Color BG_COLOR = Color.GREEN.darker();
-    private static final Color BORDER_COLOR = new Color(200,8,21); //Venetian Red
-    private static final Color DASH_BORDER_COLOR = new  Color(255, 216, 0);//school bus yellow
-    private static final Color TEXT_COLOR = new Color(255, 255, 255);//egyptian blue
+    private static final Color TEXT_COLOR = new Color(255, 255, 255);//pure white
     private static final Color CLICKED_BUTTON_COLOR = BG_COLOR.brighter();
     private static final Color CLICKED_TEXT = Color.WHITE;
-    private static final int BORDER_SIZE = 5;
-    private static final float[] DASHES = {12,6};
-
-    private Rectangle menuFace;
-    private Rectangle startButton;
-    private Rectangle menuButton;
-    private Rectangle settingButton;
 
 
-    private BasicStroke borderStoke;
-    private BasicStroke borderStoke_noDashes;
 
-    private Font greetingsFont;
-    private Font gameTitleFont;
-    private Font creditsFont;
-    private Font buttonFont;
+    private final Rectangle menuFace;
+    private final Rectangle startButton;
+    private final Rectangle menuButton;
+    private final Rectangle settingButton;
 
-    private GameFrame owner;
+
+    private final Font greetingsFont;
+    private final Font gameTitleFont;
+    private final Font creditsFont;
+    private final Font buttonFont;
+
+    private final GameFrame owner;
 
     private boolean startClicked;
     private boolean menuClicked;
@@ -89,8 +84,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         menuButton = new Rectangle(btnDim);
         settingButton = new Rectangle(btnDim);
 
-        borderStoke = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND,0,DASHES,0);
-        borderStoke_noDashes = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND);
 
         greetingsFont = new Font("Noto Mono",Font.PLAIN,25);
         gameTitleFont = new Font("Noto Mono",Font.BOLD,40);

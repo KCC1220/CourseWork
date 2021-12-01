@@ -22,10 +22,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.FontRenderContext;
 import java.io.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-import static main.java.GraphicsMain.thread1;
 import static main.java.HighScore.highScore;
 
 
@@ -47,13 +44,13 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     private Timer gameTimer;
 
-    private Wall wall;
+    private final Wall wall;
 
     private String message;
 
     private boolean showPauseMenu;
 
-    private Font menuFont;
+    private final Font menuFont;
 
     private Rectangle continueButtonRect;
     private Rectangle exitButtonRect;
@@ -61,7 +58,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private Rectangle muteButton;
     private int strLen;
 
-    private DebugConsole debugConsole;
+    private final DebugConsole debugConsole;
 
     static timer time = new timer();
     String stopWatch;
@@ -88,7 +85,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         this.initialize();
         message = "";
-        wall = new Wall(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT),30,3,6/2,new Point(300,430));
+        wall = new Wall(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT),30,3,(float)6/2,new Point(300,430));
 
         debugConsole = new DebugConsole(owner,wall,this);
         //initialize the first level
@@ -119,6 +116,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
+                    hs.CheckScore(totalTime);
                     message = "Go to Next Level   Time Taken in Sec: "+(time.elapsed()/1000)+"    Best Time in Sec of All Level: "+highScore;
                     gameTimer.stop();
                     wall.ballReset();

@@ -27,11 +27,11 @@ public class DebugConsole extends JDialog implements WindowListener{
     private static final String TITLE = "Debug Console";
 
 
-    private JFrame owner;
-    private DebugPanel debugPanel;
+    private final JFrame owner;
+    private final DebugPanel debugPanel;
     private GameBoard gameBoard;
     private ArcadeLevel arcadeLevel;
-    private Wall wall;
+    private final Wall wall;
     private int type= 0;
 
 
@@ -86,7 +86,7 @@ public class DebugConsole extends JDialog implements WindowListener{
     @Override
     public void windowClosing(WindowEvent windowEvent) {
         if(type==0){gameBoard.repaint();}
-        else if(type==1){arcadeLevel.repaint();};
+        else if(type==1){arcadeLevel.repaint();}
     }
 
     @Override

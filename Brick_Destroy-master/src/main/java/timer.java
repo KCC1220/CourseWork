@@ -10,29 +10,26 @@ public class timer {
      int seconds =0;
      int minutes=0;
      int hour=0;
-     boolean started = false;
+
 
 
 
      String seconds_string = String.format("%02d",seconds);
      String minutes_string = String.format("%02d",minutes);
      String hour_string = String.format("%02d",hour);
-     String time = hour_string+":"+minutes_string+":"+seconds_string;;
+     String time = hour_string+":"+minutes_string+":"+seconds_string;
 
-    Timer timer = new Timer(1000, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            elapsedTime = elapsedTime+1000;
-            hour = elapsedTime/36000000;
-            minutes = (elapsedTime/60000)%60;
-            seconds = (elapsedTime/1000)%60;
-            String seconds_string = String.format("%02d",seconds);
-            String minutes_string = String.format("%02d",minutes);
-            String hour_string = String.format("%02d",hour);
-            timelabel.setText(hour_string+":"+minutes_string+":"+seconds_string);
-            time = hour_string+":"+minutes_string+":"+seconds_string;
+    Timer timer = new Timer(1000, e -> {
+        elapsedTime = elapsedTime+1000;
+        hour = elapsedTime/36000000;
+        minutes = (elapsedTime/60000)%60;
+        seconds = (elapsedTime/1000)%60;
+        String seconds_string = String.format("%02d",seconds);
+        String minutes_string = String.format("%02d",minutes);
+        String hour_string = String.format("%02d",hour);
+        timelabel.setText(hour_string+":"+minutes_string+":"+seconds_string);
+        time = hour_string+":"+minutes_string+":"+seconds_string;
 
-        }
     });
 
     void start(){

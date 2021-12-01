@@ -17,24 +17,23 @@
  */
 package main.java;
 
-import javafx.scene.Parent;
-import javafx.stage.Stage;
+
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
-import java.io.IOException;
+
 
 
 public class GameFrame extends JFrame implements WindowFocusListener {
 
     private static final String DEF_TITLE = "Brick Destroy";
 
-    private GameBoard gameBoard;
-    private ArcadeLevel arcadeLevel;
-    private HomeMenu homeMenu;
-    private HomeMenuController home = new HomeMenuController();
+    private final GameBoard gameBoard;
+    private final ArcadeLevel arcadeLevel;
+    private final HomeMenu homeMenu;
+
 
     private boolean gaming;
 

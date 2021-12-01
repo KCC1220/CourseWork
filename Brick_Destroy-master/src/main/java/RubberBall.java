@@ -26,8 +26,7 @@ public class RubberBall extends Ball {
 
 
     private static final int DEF_RADIUS = 10;
-//    private static final Color DEF_INNER_COLOR = obj.main;//colour of ball
-//    private static Color DEF_BORDER_COLOR = DEF_INNER_COLOR.darker().darker();
+
 
 
     public RubberBall(Point2D center){
@@ -38,8 +37,8 @@ public class RubberBall extends Ball {
     @Override
     protected Shape makeBall(Point2D center, int radiusA, int radiusB) {
 
-        double x = center.getX() - (radiusA / 2);
-        double y = center.getY() - (radiusB / 2);
+        double x = center.getX() - (float)(radiusA / 2);
+        double y = center.getY() - (float)(radiusB / 2);
 
         return new Ellipse2D.Double(x,y,radiusA,radiusB);
     }

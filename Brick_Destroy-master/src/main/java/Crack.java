@@ -3,7 +3,6 @@ package main.java;
 import java.awt.*;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
-import java.util.Random;
 
 
 import static main.java.Brick.rnd;
@@ -110,8 +109,8 @@ public class Crack{
             x = (i * w) + start.x;
             y = (i * h) + start.y + randomInBounds(bound);
 
-            if(inMiddle(i,CRACK_SECTIONS,steps))
-                y += jumps(jump,JUMP_PROBABILITY);
+            if(inMiddle(i, steps))
+                y += jumps(jump);
 
             path.lineTo(x,y);
 
@@ -126,16 +125,16 @@ public class Crack{
         return rnd.nextInt(n) - bound;
     }
 
-    private boolean inMiddle(int i,int steps,int divisions){
-        int low = (steps / divisions);
+    private boolean inMiddle(int i, int divisions){
+        int low = (Crack.CRACK_SECTIONS / divisions);
         int up = low * (divisions - 1);
 
         return  (i > low) && (i < up);
     }
 
-    private int jumps(int bound,double probability){
+    private int jumps(int bound){
 
-        if(rnd.nextDouble() > probability)
+        if(rnd.nextDouble() > Crack.JUMP_PROBABILITY)
             return randomInBounds(bound);
         return  0;
 
@@ -146,15 +145,15 @@ public class Crack{
         Point out = new Point();
         int pos;
 
-        switch(direction){
-            case HORIZONTAL:
+        switch (direction) {
+            case HORIZONTAL -> {
                 pos = rnd.nextInt(to.x - from.x) + from.x;
-                out.setLocation(pos,to.y);
-                break;
-            case VERTICAL:
+                out.setLocation(pos, to.y);
+            }
+            case VERTICAL -> {
                 pos = rnd.nextInt(to.y - from.y) + from.y;
-                out.setLocation(to.x,pos);
-                break;
+                out.setLocation(to.x, pos);
+            }
         }
         return out;
     }

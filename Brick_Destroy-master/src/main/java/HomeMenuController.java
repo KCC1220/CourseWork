@@ -1,15 +1,10 @@
 package main.java;
 
-import javafx.application.Application;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
 
-import java.awt.*;
-import java.io.IOException;
+import javafx.fxml.FXML;
+
+import javafx.scene.Scene;
+
 
 public class HomeMenuController{
     private GameFrame owner;

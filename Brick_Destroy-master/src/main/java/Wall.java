@@ -30,8 +30,8 @@ public class Wall {
     private static final int STEEL = 2;
     private static final int CEMENT = 3;
 
-    private Random rnd;
-    private Rectangle area;
+    private final Random rnd;
+    private final Rectangle area;
 
     Brick[] bricks;
     Ball ball;
@@ -42,7 +42,7 @@ public class Wall {
     private int level;
     private int arcadeLevel;
 
-    private Point startPoint;
+    private final Point startPoint;
     private int brickCount;
     private int ballCount;
     private boolean ballLost;
@@ -284,22 +284,26 @@ public class Wall {
 
     private boolean impactWall(){
         for(Brick b : bricks){
-            switch(b.findImpact(ball)) {
+            switch (b.findImpact(ball)) {
                 //Vertical Impact
-                case Brick.UP_IMPACT:
+                case Brick.UP_IMPACT -> {
                     ball.reverseY();
                     return b.setImpact(ball.down, Crack.UP);
-                case Brick.DOWN_IMPACT:
+                }
+                case Brick.DOWN_IMPACT -> {
                     ball.reverseY();
                     return b.setImpact(ball.up, Crack.DOWN);
+                }
 
                 //Horizontal Impact
-                case Brick.LEFT_IMPACT:
+                case Brick.LEFT_IMPACT -> {
                     ball.reverseX();
                     return b.setImpact(ball.right, Crack.RIGHT);
-                case Brick.RIGHT_IMPACT:
+                }
+                case Brick.RIGHT_IMPACT -> {
                     ball.reverseX();
                     return b.setImpact(ball.left, Crack.LEFT);
+                }
             }
         }
         return false;
@@ -385,21 +389,12 @@ public class Wall {
     }
 
     private Brick makeBrick(Point point, Dimension size, int type){
-        Brick out;
-        switch(type){
-            case CLAY:
-                out = new ClayBrick(point,size);
-                break;
-            case STEEL:
-                out = new SteelBrick(point,size);
-                break;
-            case CEMENT:
-                out = new CementBrick(point, size);
-                break;
-            default:
-                throw  new IllegalArgumentException(String.format("Unknown Type:%d\n",type));
-        }
-        return  out;
+        return switch (type) {
+            case CLAY -> new ClayBrick(point, size);
+            case STEEL -> new SteelBrick(point, size);
+            case CEMENT -> new CementBrick(point, size);
+            default -> throw new IllegalArgumentException(String.format("Unknown Type:%d\n", type));
+        };
     }
 
 }

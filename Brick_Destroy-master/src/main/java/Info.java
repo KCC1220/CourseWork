@@ -14,7 +14,7 @@ public class Info extends JComponent implements ActionListener {
     JFrame frame = new JFrame();
     public Info() {
 
-        String introduction1 = "This game named as Brick Master.";
+        String introduction1 = "This game named as Brick Master. ";
         String introduction2 = "This game is a 2D arcade game which basically it help to train a player's reflexes";
         String instruction1 = "To start the game, you can press the 'START' button in the main menu";
         String instruction2 ="After you press the main menu, you are free to choose some of the colours that shows on the screen.";

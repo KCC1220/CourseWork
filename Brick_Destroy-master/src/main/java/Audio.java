@@ -1,11 +1,9 @@
 package main.java;
-import java.awt.event.*;
+
 import java.io.File;
-import java.io.IOException;
-import java.util.Scanner;
-import java.util.concurrent.ExecutionException;
+
 import javax.sound.sampled.*;
-import javax.swing.*;
+
 
 
 

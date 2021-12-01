@@ -8,15 +8,14 @@ abstract public class Ball {
 
     private Shape ballFace;
 
-    private Point2D center;
+    private final Point2D center;
 
     Point2D up;
     Point2D down;
     Point2D left;
     Point2D right;
 
-    private Color border;
-    private Color inner;
+
 
     private int speedX;
     private int speedY;
@@ -29,16 +28,14 @@ abstract public class Ball {
         left = new Point2D.Double();
         right = new Point2D.Double();
 
-        up.setLocation(center.getX(),center.getY()-(radiusB / 2));
-        down.setLocation(center.getX(),center.getY()+(radiusB / 2));
+        up.setLocation(center.getX(),center.getY()-((float)radiusB / 2));
+        down.setLocation(center.getX(),center.getY()+((float)radiusB / 2));
 
-        left.setLocation(center.getX()-(radiusA /2),center.getY());
-        right.setLocation(center.getX()+(radiusA /2),center.getY());
+        left.setLocation(center.getX()-((float)radiusA /2),center.getY());
+        right.setLocation(center.getX()+((float)radiusA /2),center.getY());
 
 
         ballFace = makeBall(center,radiusA,radiusB);
-        this.border = border;
-        this.inner  = inner;
         speedX = 0;
         speedY = 0;
     }
@@ -77,14 +74,6 @@ abstract public class Ball {
 
     public void reverseY(){
         speedY *= -1;
-    }
-
-    public Color getBorderColor(){
-        return border;
-    }
-
-    public Color getInnerColor(){
-        return inner;
     }
 
     public Point2D getPosition(){

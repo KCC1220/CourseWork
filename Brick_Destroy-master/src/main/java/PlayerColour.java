@@ -23,7 +23,7 @@ public class PlayerColour extends JComponent implements ActionListener{
     GameFrame gameframe;
 
 
-    public static final int DEF_WIDTH = 450;
+
     public static final int DEF_HEIGHT = 300;
 
 
