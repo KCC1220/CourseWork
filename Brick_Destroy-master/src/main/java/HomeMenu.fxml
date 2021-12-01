@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="350.0" prefWidth="500.0" styleClass="anchor" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.HomeMenuController">
+<stylesheets>
+   <URL value="@style.css" />
+</stylesheets>
+   <children>
+      <Button alignment="CENTER" layoutX="213.0" layoutY="185.0" mnemonicParsing="false" onAction="#start" prefHeight="40.0" prefWidth="75.0" text="START" />
+      <Button layoutX="213.0" layoutY="230.0" mnemonicParsing="false" onAction="#info" prefHeight="40.0" prefWidth="75.0" text="INFO" />
+      <Button layoutX="213.0" layoutY="275.0" mnemonicParsing="false" onAction="#exit" prefHeight="40.0" prefWidth="75.0" text="EXIT" />
+      <Label alignment="CENTER" contentDisplay="TOP" layoutX="123.0" layoutY="106.0" prefHeight="46.0" prefWidth="257.0" text="Brick Destroy" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+         <font>
+            <Font size="31.0" />
+         </font>
+      </Label>
+      <Label layoutX="172.0" layoutY="53.0" text="Welcome to:">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <Label layoutX="222.0" layoutY="152.0" text="version 1.0" />
+   </children>
+</AnchorPane>
