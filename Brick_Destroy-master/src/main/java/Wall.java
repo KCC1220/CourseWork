@@ -75,7 +75,7 @@ public class Wall {
 
         area = drawArea;
     }
-    //wall fro training
+    //wall for training
     public Wall(Rectangle drawArea, int brickCount, int lineCount, Point ballPos,double brickDimensionRatio){
 
         this.startPoint = new Point(ballPos);
@@ -288,18 +288,18 @@ public class Wall {
                 //Vertical Impact
                 case Brick.UP_IMPACT:
                     ball.reverseY();
-                    return b.setImpact(ball.down, Brick.Crack.UP);
+                    return b.setImpact(ball.down, Crack.UP);
                 case Brick.DOWN_IMPACT:
                     ball.reverseY();
-                    return b.setImpact(ball.up, Brick.Crack.DOWN);
+                    return b.setImpact(ball.up, Crack.DOWN);
 
                 //Horizontal Impact
                 case Brick.LEFT_IMPACT:
                     ball.reverseX();
-                    return b.setImpact(ball.right, Brick.Crack.RIGHT);
+                    return b.setImpact(ball.right, Crack.RIGHT);
                 case Brick.RIGHT_IMPACT:
                     ball.reverseX();
-                    return b.setImpact(ball.left, Brick.Crack.LEFT);
+                    return b.setImpact(ball.left, Crack.LEFT);
             }
         }
         return false;
@@ -353,6 +353,8 @@ public class Wall {
     }
 
     public void nextLevel(){
+
+        GameBoard.time.reset();
         bricks = levels[level++];
         this.brickCount = bricks.length;
     }

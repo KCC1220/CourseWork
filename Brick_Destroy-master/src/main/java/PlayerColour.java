@@ -41,6 +41,7 @@ public class PlayerColour extends JComponent implements ActionListener{
     JButton b_green = new JButton(C_Green);
     JButton b_cyan = new JButton(C_Cyan);
     JButton b_blue = new JButton(C_Blue);
+
     JButton b_magenta = new JButton(C_Magenta);
     JButton b_pink = new JButton(C_Pink);
     JButton arcade = new JButton("Arcade");

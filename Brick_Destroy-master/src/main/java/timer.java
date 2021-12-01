@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 public class timer {
      static JLabel  timelabel = new JLabel();
-     int elapsedTime=0;
+     static int elapsedTime=0;
      int seconds =0;
      int minutes=0;
      int hour=0;
@@ -37,7 +37,6 @@ public class timer {
 
     void start(){
         timer.start();
-        System.out.println(elapsedTime);
     }
     void stop(){
         timer.stop();

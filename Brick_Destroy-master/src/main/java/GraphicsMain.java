@@ -17,6 +17,12 @@
  */
 package main.java;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
@@ -28,18 +34,12 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 
-public class GraphicsMain {
-    static String [] values;
-    static List list= new List();
-    static String line ="";
+public class GraphicsMain{
+
     static String path = "Brick_Destroy-master/src/main/resources/score.txt";
     static Audio thread1 = new Audio();
     public static void main(String[] args) throws Exception {
-
         EventQueue.invokeLater(() -> new GameFrame().initialize());
-        FileReader file = new FileReader(path);
-        BufferedReader bf = new BufferedReader(file);
-        String st = bf.readLine();
         startBGM();
 
 
@@ -49,13 +49,11 @@ public class GraphicsMain {
 
     }
     public static void startBGM(){
-        thread1.run();
+        thread1.start();
     }
     public static void stopBGM() throws InterruptedException {
-        System.out.println("Itu Dia");
         Audio.clip.stop();
     }
-
 
 
 

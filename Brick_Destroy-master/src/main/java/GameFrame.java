@@ -18,6 +18,7 @@
 package main.java;
 
 import javafx.scene.Parent;
+import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,6 +34,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     private GameBoard gameBoard;
     private ArcadeLevel arcadeLevel;
     private HomeMenu homeMenu;
+    private HomeMenuController home = new HomeMenuController();
 
     private boolean gaming;
 
@@ -47,8 +49,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         arcadeLevel = new ArcadeLevel(this);
 
 
-
-        homeMenu = new HomeMenu(this,new Dimension(450,300));
+        homeMenu = new HomeMenu(this,new Dimension(500,350));
 
         this.add(homeMenu,BorderLayout.CENTER);
 
@@ -63,6 +64,9 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.pack();
         this.autoLocate();
         this.setVisible(true);
+
+
+
     }
 
     public void enableGameBoard(){

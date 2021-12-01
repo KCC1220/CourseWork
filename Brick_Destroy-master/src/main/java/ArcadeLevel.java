@@ -4,13 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.FontRenderContext;
-import java.io.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import static main.java.HighScore.highScore;
 
 
-import static main.java.HighScore.highScore;
+
+
 
 public class ArcadeLevel extends JComponent implements KeyListener, MouseListener, MouseMotionListener {
 
@@ -19,6 +16,7 @@ public class ArcadeLevel extends JComponent implements KeyListener, MouseListene
         private static final String RESTART = "Restart";
         private static final String EXIT = "Exit";
         private static final String PAUSE = "Pause Menu";
+        private static String MUTE ="Mute BGM";
         private static final int TEXT_SIZE = 30;
         private static final Color MENU_COLOR = new Color(0,255,0);
 
@@ -30,26 +28,27 @@ public class ArcadeLevel extends JComponent implements KeyListener, MouseListene
 
         private Timer gameTimer;
 
-        private Wall wall;
+        private final Wall wall;
 
         private String message;
 
         private boolean showPauseMenu;
 
-        private Font menuFont;
+        private final Font menuFont;
 
         private Rectangle continueButtonRect;
         private Rectangle exitButtonRect;
         private Rectangle restartButtonRect;
+        private Rectangle muteButton;
         private int strLen;
 
-        private DebugConsole debugConsole;
+        private final DebugConsole debugConsole;
 
         timer time = new timer();
         String stopWatch;
 
-        Record record = new Record();
-        HighScore hs = new HighScore();
+        static int audio=1;
+
 
 
 
@@ -64,7 +63,7 @@ public class ArcadeLevel extends JComponent implements KeyListener, MouseListene
 
             this.initialize();
             message = "";
-            wall = new Wall(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT),30,3,new Point(300,430),6/2);
+            wall = new Wall(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT),30,3,new Point(300,430),(float)6/2);
 
             debugConsole = new DebugConsole(owner,wall,this);
             //initialize the first level
@@ -76,6 +75,7 @@ public class ArcadeLevel extends JComponent implements KeyListener, MouseListene
                 if(wall.isBallLost()){
                     if(wall.ballEnd()){
                         wall.wallReset();
+                        time.reset();
                         message = "Game Over";
                     }
                     wall.ballReset();
@@ -86,13 +86,6 @@ public class ArcadeLevel extends JComponent implements KeyListener, MouseListene
                     if(wall.hasArcadeLevel()){
                         time.stop();
                         stopWatch = time.timeInString();
-                        System.out.println(time.elapsedTime/1000);
-                        hs.CheckScore(time.elapsedTime/1000);
-                        try {
-                            record.write("\n"+stopWatch);
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-                        }
                         message = "Go to Next Level   Time Taken: "+stopWatch;
                         time.reset();
                         gameTimer.stop();
@@ -265,11 +258,21 @@ public class ArcadeLevel extends JComponent implements KeyListener, MouseListene
 
             g2d.drawString(EXIT,x,y);
 
+            y*=1.3;
+
+            if(muteButton == null){
+                muteButton = (Rectangle) continueButtonRect.clone();
+                muteButton.setLocation(x,y-muteButton.height);
+            }
+
+            g2d.drawString(MUTE,x,y);
 
 
             g2d.setFont(tmpFont);
             g2d.setColor(tmpColor);
         }
+
+
 
         @Override
         public void keyTyped(KeyEvent keyEvent) {
@@ -311,7 +314,6 @@ public class ArcadeLevel extends JComponent implements KeyListener, MouseListene
 
                 case KeyEvent.VK_F1:
                     if(keyEvent.isAltDown() && keyEvent.isShiftDown())
-
                         debugConsole.setVisible(true);
                 default:
                     wall.player.stop();
@@ -341,6 +343,21 @@ public class ArcadeLevel extends JComponent implements KeyListener, MouseListene
             }
             else if(exitButtonRect.contains(p)){
                 System.exit(0);
+            }else if (muteButton.contains(p)) {
+                if (audio == 1) {
+                    try {
+                        GraphicsMain.stopBGM();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    MUTE = "Un-mute BGM";
+                    audio = 0;
+
+                } else if (audio == 0) {
+                    GraphicsMain.startBGM();
+                    MUTE = "Mute BGM";
+                    audio = 1;
+                }
             }
 
         }
@@ -374,7 +391,7 @@ public class ArcadeLevel extends JComponent implements KeyListener, MouseListene
         public void mouseMoved(MouseEvent mouseEvent) {
             Point p = mouseEvent.getPoint();
             if(exitButtonRect != null && showPauseMenu) {
-                if (exitButtonRect.contains(p) || continueButtonRect.contains(p) || restartButtonRect.contains(p))
+                if (exitButtonRect.contains(p) || continueButtonRect.contains(p) || restartButtonRect.contains(p) || muteButton.contains(p))
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 else
                     this.setCursor(Cursor.getDefaultCursor());
@@ -387,6 +404,7 @@ public class ArcadeLevel extends JComponent implements KeyListener, MouseListene
         public void onLostFocus(){
             gameTimer.stop();
             message = "Focus Lost";
+            time.stop();
             repaint();
         }
 

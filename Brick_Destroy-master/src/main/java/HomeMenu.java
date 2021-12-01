@@ -17,6 +17,7 @@
  */
 package main.java;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -24,6 +25,10 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
 
 
 public class HomeMenu extends JComponent implements MouseListener, MouseMotionListener {
@@ -38,7 +43,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private static final Color BG_COLOR = Color.GREEN.darker();
     private static final Color BORDER_COLOR = new Color(200,8,21); //Venetian Red
     private static final Color DASH_BORDER_COLOR = new  Color(255, 216, 0);//school bus yellow
-    private static final Color TEXT_COLOR = new Color(16, 52, 166);//egyptian blue
+    private static final Color TEXT_COLOR = new Color(255, 255, 255);//egyptian blue
     private static final Color CLICKED_BUTTON_COLOR = BG_COLOR.brighter();
     private static final Color CLICKED_TEXT = Color.WHITE;
     private static final int BORDER_SIZE = 5;
@@ -64,8 +69,8 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private boolean menuClicked;
     private boolean settingClicked;
 
-    public HomeMenu(GameFrame owner, Dimension area){
 
+    public HomeMenu(GameFrame owner, Dimension area){
         this.setFocusable(true);
         this.requestFocusInWindow();
 
@@ -89,7 +94,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
         greetingsFont = new Font("Noto Mono",Font.PLAIN,25);
         gameTitleFont = new Font("Noto Mono",Font.BOLD,40);
-        creditsFont = new Font("Monospaced",Font.PLAIN,10);
+        creditsFont = new Font("Monospaced",Font.PLAIN,25);
         buttonFont = new Font("Monospaced",Font.PLAIN,startButton.height-2);
 
 
@@ -132,20 +137,17 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private void drawContainer(Graphics2D g2d){
         Color prev = g2d.getColor();
 
-        g2d.setColor(BG_COLOR);
-        g2d.fill(menuFace);
+        BufferedImage background = null;
 
-        Stroke tmp = g2d.getStroke();
+        String imageURL = "Brick_Destroy-master/src/main/resources/photos/background.jpg";
+        try {
+            background = ImageIO.read(new File(imageURL));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        g2d.setStroke(borderStoke_noDashes);
-        g2d.setColor(DASH_BORDER_COLOR);
-        g2d.draw(menuFace);
+        g2d.drawImage(background, 0, 0,null);
 
-        g2d.setStroke(borderStoke);
-        g2d.setColor(BORDER_COLOR);
-        g2d.draw(menuFace);
-
-        g2d.setStroke(tmp);
 
         g2d.setColor(prev);
     }
@@ -163,7 +165,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         int sX,sY;
 
         sX = (int)(menuFace.getWidth() - greetingsRect.getWidth()) / 2;
-        sY = (int)(menuFace.getHeight() / 4);
+        sY = (int)(menuFace.getHeight() / 6);
 
         g2d.setFont(greetingsFont);
         g2d.drawString(GREETINGS,sX,sY);

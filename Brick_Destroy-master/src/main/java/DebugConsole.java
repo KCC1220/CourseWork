@@ -44,7 +44,7 @@ public class DebugConsole extends JDialog implements WindowListener{
 
         debugPanel = new DebugPanel(wall);
         this.add(debugPanel,BorderLayout.CENTER);
-        type =0;
+
 
         this.pack();
     }

@@ -35,7 +35,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private static final String RESTART = "Restart";
     private static final String EXIT = "Exit";
     private static final String PAUSE = "Pause Menu";
-    private static String MUTE ="BGM";
+    private static String MUTE ="Mute BGM";
     private static final int TEXT_SIZE = 30;
     private static final Color MENU_COLOR = new Color(0,255,0);
 
@@ -63,12 +63,18 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     private DebugConsole debugConsole;
 
-    timer time = new timer();
+    static timer time = new timer();
     String stopWatch;
 
+
     Record record = new Record();
+    int level=0;
     HighScore hs = new HighScore();
+    int totalTime;
+
+
     static int audio=1;
+
 
 
 
@@ -87,13 +93,15 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         debugConsole = new DebugConsole(owner,wall,this);
         //initialize the first level
         wall.nextLevel();
+
         gameTimer = new Timer(10,e ->{
             wall.move();
             wall.findImpacts();
-            message = String.format("Bricks: %d Balls %d"+ "   High Score:"+ highScore,wall.getBrickCount(),wall.getBallCount());
+            message = String.format("Bricks: %d Balls %d"+ "   Best Time For All Level:%d",wall.getBrickCount(),wall.getBallCount(), hs.getHighScore());
             if(wall.isBallLost()){
                 if(wall.ballEnd()){
                     wall.wallReset();
+                    time.reset();
                     message = "Game Over";
                 }
                 wall.ballReset();
@@ -104,28 +112,32 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 if(wall.hasLevel()){
                     time.stop();
                     stopWatch = time.timeInString();
-                    System.out.println(time.elapsedTime/1000);
-                    hs.CheckScore(time.elapsedTime/1000);
                     try {
-                        record.write("\n"+stopWatch);
+                        totalTime+=time.elapsed();
+                        System.out.println(totalTime);
+                        record.write("\n"+level+"   "+stopWatch);
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
-                    message = "Go to Next Level   Time Taken: "+stopWatch+"     High Score: "+highScore;
-                    time.reset();
+                    message = "Go to Next Level   Time Taken in Sec: "+(time.elapsed()/1000)+"    Best Time in Sec of All Level: "+highScore;
                     gameTimer.stop();
                     wall.ballReset();
                     wall.wallReset();
                     wall.nextLevel();
                 }
                 else{
+                    try {
+                        totalTime+=time.elapsed();
+                        record.write("\n"+level+"   "+stopWatch);
+                    }catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                     time.stop();
                     stopWatch = time.timeInString();
-                    message = String.format("ALL WALLS DESTROYED   Time Taken: "+stopWatch+"     High Score: "+highScore);
+                    message = "ALL WALLS DESTROYED   Time Taken in Sec: "+(time.elapsed()/1000)+"     Best Time in Sec of All Level: : "+highScore;
                     gameTimer.stop();
                 }
             }
-
             repaint();
         });
 
@@ -151,7 +163,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         clear(g2d);
 
         g2d.setColor(Color.BLUE);
-        g2d.drawString(message,250,225);
+        g2d.drawString(message,200,225);
 
         drawBall(wall.ball,g2d);
 
@@ -196,7 +208,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         g2d.setColor(PlayerColour.b_colour());
         g2d.fill(s);
 
-        g2d.setColor(PlayerColour.b_colour());
+        g2d.setColor(PlayerColour.b_colour().darker().darker());
         g2d.draw(s);
 
         g2d.setColor(tmp);
@@ -328,6 +340,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                         System.out.println(time.timeInString());
                     }
                     else {
+                        System.out.println(time.timeInString());
                         gameTimer.start();
                         time.start();
                     }
@@ -358,6 +371,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             repaint();
         } else if (restartButtonRect.contains(p)) {
             message = "Restarting Game...";
+            time.reset();
             wall.ballReset();
             wall.wallReset();
             showPauseMenu = false;
@@ -425,6 +439,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     public void onLostFocus(){
         gameTimer.stop();
+        time.stop();
         message = "Focus Lost";
         repaint();
     }
