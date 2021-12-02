@@ -32,7 +32,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     private final GameBoard gameBoard;
     private final ArcadeLevel arcadeLevel;
-    private final HomeMenu homeMenu;
+    private final HomeMenuView homeMenu;
 
 
     private boolean gaming;
@@ -48,7 +48,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         arcadeLevel = new ArcadeLevel(this);
 
 
-        homeMenu = new HomeMenu(this,new Dimension(500,350));
+        homeMenu = new HomeMenuView(this,new Dimension(500,350));
 
         this.add(homeMenu,BorderLayout.CENTER);
 
@@ -91,7 +91,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
 
 
-    public void enableSetting(){
+    public void enableColour(){
 
         this.dispose();
         this.remove(homeMenu);
