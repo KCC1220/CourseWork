@@ -17,6 +17,7 @@
  */
 package main.java;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Random;
@@ -276,7 +277,7 @@ public class Wall {
         else if(ball.getPosition().getY() < area.getY()){
             ball.reverseY();
         }
-        else if(ball.getPosition().getY() > area.getY() + area.getHeight()){
+        else if(ball.getPosition().getY() > 450){
             ballCount--;
             ballLost = true;
         }
@@ -357,10 +358,12 @@ public class Wall {
     }
 
     public void nextLevel(){
-
         GameBoard.time.reset();
         bricks = levels[level++];
+        GameBoard.level++;
+        System.out.println(GameBoard.level);
         this.brickCount = bricks.length;
+
     }
     public void nextArcadeLevel(){
         bricks = arcadeLevels[arcadeLevel++];

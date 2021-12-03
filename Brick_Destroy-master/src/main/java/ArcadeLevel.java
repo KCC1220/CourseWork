@@ -44,7 +44,7 @@ public class ArcadeLevel extends JComponent implements KeyListener, MouseListene
 
         private final DebugConsole debugConsole;
 
-        timer time = new timer();
+        Time time = new Time();
         String stopWatch;
 
         static int audio=1;
@@ -164,14 +164,14 @@ public class ArcadeLevel extends JComponent implements KeyListener, MouseListene
 
         private void drawBall(Ball ball, Graphics2D g2d){
             Color tmp = g2d.getColor();
-
+            ColourModel model = new ColourModel();
 
             Shape s = ball.getBallFace();
 
-            g2d.setColor(PlayerColour.b_colour());
+            g2d.setColor(model.getBallColour());
             g2d.fill(s);
 
-            g2d.setColor(PlayerColour.b_colour());
+            g2d.setColor(model.getBallColour().darker().darker());
             g2d.draw(s);
 
             g2d.setColor(tmp);
@@ -179,12 +179,12 @@ public class ArcadeLevel extends JComponent implements KeyListener, MouseListene
 
         private void drawPlayer(Player p, Graphics2D g2d){
             Color tmp = g2d.getColor();
-
+            ColourModel model = new ColourModel();
             Shape s = p.getPlayerFace();
-            g2d.setColor(PlayerColour.colouring());
+            g2d.setColor(model.getPlayerColour());
             g2d.fill(s);
 
-            g2d.setColor(PlayerColour.colouring().darker().darker());
+            g2d.setColor(model.getPlayerColour().darker().darker());
             g2d.draw(s);
 
             g2d.setColor(tmp);

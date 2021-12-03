@@ -20,6 +20,9 @@ public class HomeMenuController{
     public void enableInfo(){
         owner.enableInfo();
     }
+    public void setCursor(){
+
+    }
 
 
 

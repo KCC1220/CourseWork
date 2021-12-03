@@ -54,7 +54,7 @@ public class Info extends JComponent implements ActionListener {
         frame.add(panel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Instruction");
-        frame.setSize( 1000,PlayerColour.DEF_HEIGHT);
+        frame.setSize( 1000,Colour.DEF_HEIGHT);
         autoLocate(frame);
 
         frame.setVisible(true);

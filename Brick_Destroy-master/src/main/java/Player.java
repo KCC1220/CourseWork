@@ -43,7 +43,6 @@ public class Player {
         max = min + container.width - width;
 
     }
-    public Player(){}
 
     private Rectangle makeRectangle(int width,int height){
         Point p = new Point((int)(ballPoint.getX() - (width / 2)),(int)ballPoint.getY());

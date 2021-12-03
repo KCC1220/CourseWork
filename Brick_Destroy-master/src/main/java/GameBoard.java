@@ -47,6 +47,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private final Wall wall;
 
     private String message;
+    private String timing;
+    private String seconds;
 
     private boolean showPauseMenu;
 
@@ -60,15 +62,16 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     private final DebugConsole debugConsole;
 
-    static timer time = new timer();
+    static Time time = new Time();
     String stopWatch;
 
 
     Record record = new Record();
-    int level=0;
+    static int level=-1;
     HighScore hs = new HighScore();
     int totalTime;
 
+    Font style;
 
     static int audio=1;
 
@@ -81,11 +84,13 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         showPauseMenu = false;
         menuFont = new Font("Monospaced",Font.PLAIN,TEXT_SIZE);
-
+        style = new Font("Noto Mono",Font.BOLD,15);
 
         this.initialize();
         message = "";
-        wall = new Wall(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT),30,3,(float)6/2,new Point(300,430));
+        timing ="";
+        seconds = "";
+        wall = new Wall(new Rectangle(0,15,DEF_WIDTH,DEF_HEIGHT),30,3,(float)6/2,new Point(300,430));
 
         debugConsole = new DebugConsole(owner,wall,this);
         //initialize the first level
@@ -95,6 +100,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             wall.move();
             wall.findImpacts();
             message = String.format("Bricks: %d Balls %d"+ "   Best Time For All Level:%d",wall.getBrickCount(),wall.getBallCount(), hs.getHighScore());
+            timing = String.format("%02d : %02d",time.getMinutes(),time.getSeconds());
+            seconds = String.format("%02d",time.elapsed()/1000);
             if(wall.isBallLost()){
                 if(wall.ballEnd()){
                     wall.wallReset();
@@ -110,29 +117,31 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                     time.stop();
                     stopWatch = time.timeInString();
                     try {
-                        totalTime+=time.elapsed();
+                        totalTime+=time.elapsed()/1000;
                         System.out.println(totalTime);
                         record.write("\n"+level+"   "+stopWatch);
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
-                    hs.CheckScore(totalTime);
-                    message = "Go to Next Level   Time Taken in Sec: "+(time.elapsed()/1000)+"    Best Time in Sec of All Level: "+highScore;
+                    message = "Go to Next Level   Time Taken in Sec: "+(time.elapsed()/1000)+"  Best Time in Sec of All Level: "+highScore;
                     gameTimer.stop();
                     wall.ballReset();
                     wall.wallReset();
                     wall.nextLevel();
                 }
                 else{
+                    time.stop();
                     try {
-                        totalTime+=time.elapsed();
+                        stopWatch = time.timeInString();
+                        totalTime+=time.elapsed()/1000;
                         record.write("\n"+level+"   "+stopWatch);
                     }catch (IOException ex) {
                         ex.printStackTrace();
                     }
                     time.stop();
-                    stopWatch = time.timeInString();
-                    message = "ALL WALLS DESTROYED   Time Taken in Sec: "+(time.elapsed()/1000)+"     Best Time in Sec of All Level: : "+highScore;
+                    hs.CheckScore(totalTime);
+
+                    message = "ALL WALLS DESTROYED   Time Taken in Sec: "+totalTime+"     Best Time in Sec of All Level: : "+highScore;
                     gameTimer.stop();
                 }
             }
@@ -144,7 +153,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
 
     private void initialize(){
-        this.setPreferredSize(new Dimension(DEF_WIDTH,DEF_HEIGHT));
+        this.setPreferredSize(new Dimension(DEF_WIDTH,550));
         this.setFocusable(true);
         this.requestFocusInWindow();
         this.addKeyListener(this);
@@ -159,9 +168,12 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         Graphics2D g2d = (Graphics2D) g;
 
         clear(g2d);
-
+        g2d.setFont(style);
         g2d.setColor(Color.BLUE);
-        g2d.drawString(message,200,225);
+        g2d.drawString(message,30,500);
+        g2d.drawString(timing,30,480);
+        g2d.drawString(seconds,550,480);
+        g2d.drawLine(0,450,600,450);
 
         drawBall(wall.ball,g2d);
 
@@ -199,14 +211,14 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     private void drawBall(Ball ball, Graphics2D g2d){
         Color tmp = g2d.getColor();
-
+        ColourModel model = new ColourModel();
 
         Shape s = ball.getBallFace();
 
-        g2d.setColor(PlayerColour.b_colour());
+        g2d.setColor(model.getBallColour());
         g2d.fill(s);
 
-        g2d.setColor(PlayerColour.b_colour().darker().darker());
+        g2d.setColor(model.getBallColour().darker().darker());
         g2d.draw(s);
 
         g2d.setColor(tmp);
@@ -214,12 +226,13 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     private void drawPlayer(Player p, Graphics2D g2d){
         Color tmp = g2d.getColor();
+        ColourModel model = new ColourModel();
 
         Shape s = p.getPlayerFace();
-        g2d.setColor(PlayerColour.colouring());
+        g2d.setColor(model.getPlayerColour());
         g2d.fill(s);
 
-        g2d.setColor(PlayerColour.colouring().darker().darker());
+        g2d.setColor(model.getPlayerColour().darker().darker());
         g2d.draw(s);
 
         g2d.setColor(tmp);
@@ -335,10 +348,10 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                     if(gameTimer.isRunning()) {
                         time.stop();
                         gameTimer.stop();
-                        System.out.println(time.timeInString());
+
                     }
                     else {
-                        System.out.println(time.timeInString());
+
                         gameTimer.start();
                         time.start();
                     }

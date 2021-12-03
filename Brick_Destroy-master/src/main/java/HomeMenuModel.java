@@ -64,9 +64,6 @@ public class HomeMenuModel {
     public BufferedImage getBackground(){
         return background;
     }
-
-
-
     public Rectangle getMenuFace(){return menuFace;}
     public Font getGreetingsFont(){
         return greetingsFont;

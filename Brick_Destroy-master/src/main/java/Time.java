@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class timer {
+public class Time {
      static JLabel  timelabel = new JLabel();
      static int elapsedTime=0;
      int seconds =0;
@@ -32,14 +32,22 @@ public class timer {
 
     });
 
-    void start(){
+    public void start(){
         timer.start();
     }
-    void stop(){
+    public void stop(){
         timer.stop();
     }
 
-    void reset(){
+    public int getSeconds(){
+        return seconds;
+    }
+    public int getMinutes(){
+        return minutes;
+    }
+
+
+    public void reset(){
         elapsedTime=0;
         seconds=0;
         minutes=0;
@@ -47,11 +55,11 @@ public class timer {
     }
 
 
-    String timeInString(){
+    public String timeInString(){
         return time;
     }
 
-    int elapsed(){
+    public int elapsed(){
         return elapsedTime;
     }
 

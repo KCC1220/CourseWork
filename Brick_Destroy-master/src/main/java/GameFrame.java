@@ -95,7 +95,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
         this.dispose();
         this.remove(homeMenu);
-        PlayerColour playercolour = new PlayerColour();
+        Colour playercolour = new Colour();
         this.setUndecorated(false);
         this.addWindowFocusListener(this);
     }
