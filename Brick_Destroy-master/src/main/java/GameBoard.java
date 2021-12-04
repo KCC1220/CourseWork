@@ -74,11 +74,13 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     Font style;
 
     static int audio=1;
-
+    GameBoardModel model = new GameBoardModel();
+    GameBoardController controller = new GameBoardController();
 
 
 
     public GameBoard(JFrame owner){
+
         super();
         strLen = 0;
 
@@ -86,13 +88,12 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         menuFont = new Font("Monospaced",Font.PLAIN,TEXT_SIZE);
         style = new Font("Noto Mono",Font.BOLD,15);
 
-        this.initialize();
+        controller.initialize(this);
         message = "";
         timing ="";
         seconds = "";
-        wall = new Wall(new Rectangle(0,15,DEF_WIDTH,DEF_HEIGHT),30,3,(float)6/2,new Point(300,430));
-
-        debugConsole = new DebugConsole(owner,wall,this);
+        wall = model.getWall();
+        debugConsole = model.setDebugConsole(owner,wall,this);
         //initialize the first level
         wall.nextLevel();
 
@@ -149,19 +150,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         });
 
     }
-
-
-
-    private void initialize(){
-        this.setPreferredSize(new Dimension(DEF_WIDTH,550));
-        this.setFocusable(true);
-        this.requestFocusInWindow();
-        this.addKeyListener(this);
-        this.addMouseListener(this);
-        this.addMouseMotionListener(this);
-    }
-
-
 
     public void paint(Graphics g){
 

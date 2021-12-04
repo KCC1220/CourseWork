@@ -33,24 +33,7 @@ import java.io.IOException;
 
 public class HomeMenuView extends JComponent implements MouseListener, MouseMotionListener {
 
-//    private static final String GREETINGS = "Welcome to:";
-//    private static final String GAME_TITLE = "Brick Destroy";
-//    private static final String CREDITS = "Version 0.1";
-//    private static final String START_TEXT = "Start";
-//    private static final String MENU_TEXT = "Exit";
-//    private static final String SETTING_TEXT = "Info";
-//
-//    private static final Color BG_COLOR = Color.GREEN.darker();
-//    private static final Color TEXT_COLOR = new Color(255, 255, 255);//pure white
-//private static final Color CLICKED_BUTTON_COLOR = Color.GREEN.darker().brighter();
-//    private static final Color CLICKED_TEXT = Color.WHITE;
-//
-//
-//
-////    private final Rectangle menuFace;
-////    private final Rectangle startButton;
-////    private final Rectangle menuButton;
-////    private final Rectangle settingButton;
+
 
 
     Rectangle startButton;
@@ -70,7 +53,6 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
     public HomeMenuView(GameFrame owner, Dimension area){
         this.setFocusable(true);
         this.requestFocusInWindow();
-
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
         this.owner = owner;
@@ -190,7 +172,6 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
 
 
 
-        //move to controller
         if(startClicked){
             Color tmp = g2d.getColor();
             g2d.setColor(model.getClickedButtonColor());
@@ -209,42 +190,12 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
 
         y *= 1.2;
 
-        exitButton.setLocation(x,y);
-
-
-
-
-        x = (int)(exitButton.getWidth() - exitRect.getWidth()) / 2;
-        y = (int)(exitButton.getHeight() - exitRect.getHeight()) / 2;
-
-        x += exitButton.x;
-        y += exitButton.y + (startButton.height * 0.9);
-
-        if(menuClicked){
-            Color tmp = g2d.getColor();
-
-            g2d.setColor(model.getClickedButtonColor());
-            g2d.draw(exitButton);
-            g2d.setColor(model.getClickedText());
-            g2d.drawString(model.getMenuText(),x,y);
-            g2d.setColor(tmp);
-        }
-        else{
-            g2d.draw(exitButton);
-            g2d.drawString(model.getMenuText(),x,y);
-        }
-//this is the info button
-        x = startButton.x;
-        y = exitButton.y;
-
-        y *= 1.2;
-
         infoButton.setLocation(x,y);
 
 
 
 
-        x = (int)(infoButton.getWidth() - settingRect.getWidth()) /2;
+        x = (int)(infoButton.getWidth() - settingRect.getWidth()) / 2;
         y = (int)(infoButton.getHeight() - settingRect.getHeight()) / 2;
 
         x += infoButton.x;
@@ -263,6 +214,36 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
             g2d.draw(infoButton);
             g2d.drawString(model.getSettingText(),x,y);
         }
+//this is the info button
+        x = startButton.x;
+        y = infoButton.y;
+
+        y *= 1.2;
+
+        exitButton.setLocation(x,y);
+
+
+
+
+        x = (int)(exitButton.getWidth() - exitRect.getWidth()) /2;
+        y = (int)(exitButton.getHeight() - exitRect.getHeight()) / 2;
+
+        x += exitButton.x;
+        y += exitButton.y + (startButton.height * 0.9);
+
+        if(menuClicked){
+            Color tmp = g2d.getColor();
+
+            g2d.setColor(model.getClickedButtonColor());
+            g2d.draw(exitButton);
+            g2d.setColor(model.getClickedText());
+            g2d.drawString(model.getMenuText(),x,y);
+            g2d.setColor(tmp);
+        }
+        else{
+            g2d.draw(exitButton);
+            g2d.drawString(model.getMenuText(),x,y);
+        }
 
 
 
@@ -277,8 +258,7 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
             controller.enableStart();
         }
         else if(exitButton.contains(p)){
-            System.out.println("Goodbye " + System.getProperty("user.name"));
-            System.exit(0);
+            controller.enableExit();
         }
         else if (infoButton.contains(p)){
             controller.enableInfo();

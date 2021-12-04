@@ -20,8 +20,9 @@ public class HomeMenuController{
     public void enableInfo(){
         owner.enableInfo();
     }
-    public void setCursor(){
-
+    public void enableExit(){
+        System.out.println("Goodbye " + System.getProperty("user.name"));
+        System.exit(0);
     }
 
 
