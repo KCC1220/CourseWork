@@ -358,10 +358,10 @@ public class Wall {
     }
 
     public void nextLevel(){
-        GameBoard.time.reset();
+        GameBoardController.resetTime();
         bricks = levels[level++];
-        GameBoard.level++;
-        System.out.println(GameBoard.level);
+        GameBoardModel.level++;
+        System.out.println(GameBoardModel.level);
         this.brickCount = bricks.length;
 
     }

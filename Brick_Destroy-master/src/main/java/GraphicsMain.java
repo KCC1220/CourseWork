@@ -42,6 +42,9 @@ public class GraphicsMain{
     public static void stopBGM() throws InterruptedException {
         Audio.clip.stop();
     }
+    public static void resumeBGM(){
+        Audio.clip.start();
+    }
 
 
 

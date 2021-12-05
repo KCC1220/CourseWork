@@ -32,48 +32,38 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private static final String RESTART = "Restart";
     private static final String EXIT = "Exit";
     private static final String PAUSE = "Pause Menu";
-    private static String MUTE ="Mute BGM";
+    public static String MUTE ="Mute BGM";
     private static final int TEXT_SIZE = 30;
     private static final Color MENU_COLOR = new Color(0,255,0);
 
 
     private static final int DEF_WIDTH = 600;
-    private static final int DEF_HEIGHT = 450;
+    private static final int DEF_HEIGHT = 550;
 
     private static final Color BG_COLOR = Color.WHITE;
 
-    private Timer gameTimer;
+    public static Timer gameTimer;
 
     private final Wall wall;
 
-    private String message;
+    public static  String message;
     private String timing;
     private String seconds;
 
-    private boolean showPauseMenu;
+
 
     private final Font menuFont;
 
-    private Rectangle continueButtonRect;
-    private Rectangle exitButtonRect;
-    private Rectangle restartButtonRect;
-    private Rectangle muteButton;
+    public static Rectangle continueButtonRect;
+    public static Rectangle exitButtonRect;
+    public static Rectangle restartButtonRect;
+    public static Rectangle muteButton;
     private int strLen;
 
-    private final DebugConsole debugConsole;
-
-    static Time time = new Time();
-    String stopWatch;
-
-
-    Record record = new Record();
-    static int level=-1;
-    HighScore hs = new HighScore();
-    int totalTime;
 
     Font style;
 
-    static int audio=1;
+
     GameBoardModel model = new GameBoardModel();
     GameBoardController controller = new GameBoardController();
 
@@ -83,8 +73,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         super();
         strLen = 0;
-
-        showPauseMenu = false;
         menuFont = new Font("Monospaced",Font.PLAIN,TEXT_SIZE);
         style = new Font("Noto Mono",Font.BOLD,15);
 
@@ -93,60 +81,17 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         timing ="";
         seconds = "";
         wall = model.getWall();
-        debugConsole = model.setDebugConsole(owner,wall,this);
+        DebugConsole debugConsole = model.setDebugConsole(owner, wall, this);
         //initialize the first level
         wall.nextLevel();
 
         gameTimer = new Timer(10,e ->{
-            wall.move();
-            wall.findImpacts();
-            message = String.format("Bricks: %d Balls %d"+ "   Best Time For All Level:%d",wall.getBrickCount(),wall.getBallCount(), hs.getHighScore());
-            timing = String.format("%02d : %02d",time.getMinutes(),time.getSeconds());
-            seconds = String.format("%02d",time.elapsed()/1000);
-            if(wall.isBallLost()){
-                if(wall.ballEnd()){
-                    wall.wallReset();
-                    time.reset();
-                    message = "Game Over";
-                }
-                wall.ballReset();
-                gameTimer.stop();
-                time.stop();
-            }
-            else if(wall.isDone()){
-                if(wall.hasLevel()){
-                    time.stop();
-                    stopWatch = time.timeInString();
-                    try {
-                        totalTime+=time.elapsed()/1000;
-                        System.out.println(totalTime);
-                        record.write("\n"+level+"   "+stopWatch);
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                    message = "Go to Next Level   Time Taken in Sec: "+(time.elapsed()/1000)+"  Best Time in Sec of All Level: "+highScore;
-                    gameTimer.stop();
-                    wall.ballReset();
-                    wall.wallReset();
-                    wall.nextLevel();
-                }
-                else{
-                    time.stop();
-                    try {
-                        stopWatch = time.timeInString();
-                        totalTime+=time.elapsed()/1000;
-                        record.write("\n"+level+"   "+stopWatch);
-                    }catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                    time.stop();
-                    hs.CheckScore(totalTime);
-
-                    message = "ALL WALLS DESTROYED   Time Taken in Sec: "+totalTime+"     Best Time in Sec of All Level: : "+highScore;
-                    gameTimer.stop();
-                }
-            }
-            repaint();
+            controller.move();
+            controller.findImpacts();
+            message = String.format("Bricks: %d Balls %d"+ "   Best Time For All Level:%d",controller.getBrickCount(),controller.getBallCount(), controller.getHighScore());
+            timing = String.format("%02d : %02d",controller.getMinutes(),controller.getSeconds());
+            seconds = String.format("%02d",controller.getElapsedTime()/1000);
+            controller.check(this);
         });
 
     }
@@ -171,7 +116,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         drawPlayer(wall.player,g2d);
 
-        if(showPauseMenu)
+        if(controller.pauseMenu())
             drawMenu(g2d);
 
         Toolkit.getDefaultToolkit().sync();
@@ -314,45 +259,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     @Override
     public void keyPressed(KeyEvent keyEvent) {
+            controller.keyPressed(keyEvent,this);
 
-        switch(keyEvent.getKeyCode()){
-            case KeyEvent.VK_LEFT:
-            case KeyEvent.VK_A:
-                wall.player.moveLeft();
-                break;
-            case KeyEvent.VK_RIGHT:
-            case KeyEvent.VK_D:
-                wall.player.movRight();
-                break;
-            case KeyEvent.VK_ESCAPE:
-                showPauseMenu = !showPauseMenu;
-                repaint();
-                time.stop();
-                gameTimer.stop();
-                break;
-            case KeyEvent.VK_SPACE:
-
-                if(!showPauseMenu) {
-                    if(gameTimer.isRunning()) {
-                        time.stop();
-                        gameTimer.stop();
-
-                    }
-                    else {
-
-                        gameTimer.start();
-                        time.start();
-                    }
-                }
-
-                break;
-
-            case KeyEvent.VK_F1:
-                if(keyEvent.isAltDown() && keyEvent.isShiftDown())
-                    debugConsole.setVisible(true);
-            default:
-                wall.player.stop();
-        }
     }
 
     @Override
@@ -362,37 +270,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        Point p = mouseEvent.getPoint();
-        if (!showPauseMenu)
-            return;
-        if (continueButtonRect.contains(p)) {
-            showPauseMenu = false;
-            repaint();
-        } else if (restartButtonRect.contains(p)) {
-            message = "Restarting Game...";
-            time.reset();
-            wall.ballReset();
-            wall.wallReset();
-            showPauseMenu = false;
-            repaint();
-        } else if (exitButtonRect.contains(p)) {
-            System.exit(0);
-        } else if (muteButton.contains(p)) {
-            if (audio == 1) {
-                try {
-                    GraphicsMain.stopBGM();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                MUTE = "Un-mute BGM";
-                audio=0;
+        controller.mouseClicked(mouseEvent,this);
 
-            }else if(audio==0) {
-                GraphicsMain.startBGM();
-                MUTE="Mute BGM";
-                audio=1;
-            }
-            }
 
         }
 
@@ -424,21 +303,13 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
-        Point p = mouseEvent.getPoint();
-        if(exitButtonRect != null && showPauseMenu) {
-            if (exitButtonRect.contains(p) || continueButtonRect.contains(p) || restartButtonRect.contains(p) || muteButton.contains(p))
-                this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            else
-                this.setCursor(Cursor.getDefaultCursor());
-        }
-        else{
-            this.setCursor(Cursor.getDefaultCursor());
-        }
+        controller.mouseMoved(mouseEvent,this);
+
     }
 
     public void onLostFocus(){
         gameTimer.stop();
-        time.stop();
+        controller.stopTime();
         message = "Focus Lost";
         repaint();
     }
