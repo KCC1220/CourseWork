@@ -359,10 +359,14 @@ public class Wall {
 
     public void nextLevel(){
         GameBoardController.resetTime();
-        bricks = levels[level++];
-        GameBoardModel.level++;
-        System.out.println(GameBoardModel.level);
-        this.brickCount = bricks.length;
+        if(!hasLevel()){
+            JOptionPane.showMessageDialog(null,"The Level Ended","Alert",JOptionPane.PLAIN_MESSAGE);
+        }
+        else {
+            bricks = levels[level++];
+            GameBoardModel.level++;
+            this.brickCount = bricks.length;
+        }
 
     }
     public void nextArcadeLevel(){
