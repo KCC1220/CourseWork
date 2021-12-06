@@ -288,7 +288,7 @@ public class ArcadeLevel extends JComponent implements KeyListener, MouseListene
                     break;
                 case KeyEvent.VK_RIGHT:
                 case KeyEvent.VK_D:
-                    wall.player.movRight();
+                    wall.player.moveRight();
                     break;
                 case KeyEvent.VK_ESCAPE:
                     showPauseMenu = !showPauseMenu;

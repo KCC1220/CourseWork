@@ -30,7 +30,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     private static final String DEF_TITLE = "Brick Destroy";
 
-    private final GameBoard gameBoard;
+    public static GameBoard gameBoard;
     private final ArcadeLevel arcadeLevel;
     private final HomeMenuView homeMenu;
 

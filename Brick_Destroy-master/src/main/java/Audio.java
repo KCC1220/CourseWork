@@ -13,7 +13,7 @@ import javax.sound.sampled.*;
 public class Audio extends Thread{
     static Clip clip;
     AudioInputStream audioStream;
-    Boolean status;
+
 
     @Override
     public void run() {

@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 
 public class Colour extends JComponent implements ActionListener{
 
-    ColourModel colourModel = new ColourModel();
+    public ColourModel colourModel = new ColourModel();
     ColourController colourController = new ColourController();
 
 
@@ -21,8 +21,8 @@ public class Colour extends JComponent implements ActionListener{
 
 
     JFrame frame;
-    JLabel label_p;
-    JLabel label_b;
+    public static JLabel label_p;
+    public static JLabel label_b;
 
 
 
@@ -104,12 +104,6 @@ public class Colour extends JComponent implements ActionListener{
     }
 
 
-//    public void updatePlayerColour(String Color){
-//       label_p.setText(Color);
-//    }
-//    public void updateBallColor(String Color){
-//        label_b.setText(Color);
-//   }
 
 
 

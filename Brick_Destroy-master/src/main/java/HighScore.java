@@ -4,8 +4,8 @@ import java.io.*;
 
 public class HighScore {
 
-    static int highScore=0;
-    String path1 = "Brick_Destroy-master/src/main/resources/score.txt";
+    public static int highScore=0;
+    String path1 = "Brick_Destroy-master/src/main/resources/highscore1.txt";
 
 
     public HighScore(){

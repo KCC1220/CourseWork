@@ -24,7 +24,6 @@ import java.awt.*;
 
 public class GraphicsMain{
 
-    static String path = "Brick_Destroy-master/src/main/resources/score.txt";
     static Audio thread1 = new Audio();
     public static void main(String[] args) throws Exception {
         EventQueue.invokeLater(() -> new GameFrame().initialize());

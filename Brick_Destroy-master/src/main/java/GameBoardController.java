@@ -1,5 +1,6 @@
 package main.java;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -7,24 +8,14 @@ import java.io.IOException;
 
 import static main.java.GameBoard.*;
 import static main.java.GameBoardModel.*;
-import static main.java.GameBoardModel.audio;
 import static main.java.HighScore.highScore;
 
 public class GameBoardController {
+    public static int test=0;
     GameBoardModel model = new GameBoardModel();
-
-
-
-
-
     public void move(){
         wall.move();
     }
-
-    public Boolean isBallLost(){
-        return model.getWall().isBallLost();
-    }
-
     public void initialize(GameBoard board){
         board.setPreferredSize(new Dimension(model.getDefWidth(),550));
         board.setFocusable(true);
@@ -36,6 +27,9 @@ public class GameBoardController {
 
     public void playerMoveLeft(){
         wall.player.moveLeft();
+    }
+    public void playerMoveRight(){
+        wall.player.moveRight();
     }
 
     public void check(GameBoard gameBoard){
@@ -120,7 +114,7 @@ public class GameBoardController {
                 break;
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
-                wall.player.movRight();
+                playerMoveRight();
                 break;
             case KeyEvent.VK_ESCAPE:
                 showPauseMenu = !showPauseMenu;
@@ -136,6 +130,7 @@ public class GameBoardController {
                         gameTimer.stop();
                     }
                     else {
+                        test=1;
                         gameTimer.start();
                         startTime();
 
@@ -173,19 +168,23 @@ public class GameBoardController {
         } else if (exitButtonRect.contains(p)) {
             System.exit(0);
         } else if (muteButton.contains(p)) {
-            if (audio == 1) {
+            if (GameBoardModel.audio == 1) {
+                audio=0;
                 try {
                     GraphicsMain.stopBGM();
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                model.setMute();
-                audio=0;
 
-            }else if(audio==0) {
+                model.setMute();
+
+
+            }else if(GameBoardModel.audio==0) {
                 GraphicsMain.resumeBGM();
                 model.setUnMute();
                 audio=1;
+
             }
         }
 
@@ -203,6 +202,25 @@ public class GameBoardController {
             gameBoard.setCursor(Cursor.getDefaultCursor());
         }
     }
+
+    public Font getMenuFont() {
+        return model.getMenuFont();
+    }
+    public Font getStyleFont(){
+        return model.getStyle();
+    }
+
+    public Wall getWall(){
+        return model.getWall();
+    }
+
+    public DebugConsole setDebugConsole(JFrame frame, Wall wall, GameBoard gameBoard){
+        return model.setDebugConsole(frame,wall,gameBoard);
+    }
+    public static void setPauseMenu(){
+        showPauseMenu=true;
+    }
+
 
 
 

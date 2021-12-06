@@ -360,7 +360,7 @@ public class Wall {
     public void nextLevel(){
         GameBoardController.resetTime();
         if(!hasLevel()){
-            JOptionPane.showMessageDialog(null,"The Level Ended","Alert",JOptionPane.PLAIN_MESSAGE);
+             JOptionPane.showConfirmDialog(null,"This is already the last level","Alert", JOptionPane.DEFAULT_OPTION);
         }
         else {
             bricks = levels[level++];

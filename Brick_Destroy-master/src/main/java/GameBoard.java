@@ -64,7 +64,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     Font style;
 
 
-    GameBoardModel model = new GameBoardModel();
+
     GameBoardController controller = new GameBoardController();
 
 
@@ -73,15 +73,15 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         super();
         strLen = 0;
-        menuFont = new Font("Monospaced",Font.PLAIN,TEXT_SIZE);
-        style = new Font("Noto Mono",Font.BOLD,15);
+        menuFont = controller.getMenuFont();
+        style = controller.getStyleFont();
 
         controller.initialize(this);
         message = "";
         timing ="";
         seconds = "";
-        wall = model.getWall();
-        DebugConsole debugConsole = model.setDebugConsole(owner, wall, this);
+        wall = controller.getWall();
+        DebugConsole debugConsole = controller.setDebugConsole(owner, wall, this);
         //initialize the first level
         wall.nextLevel();
 
@@ -195,7 +195,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         Font tmpFont = g2d.getFont();
         Color tmpColor = g2d.getColor();
 
-
         g2d.setFont(menuFont);
         g2d.setColor(MENU_COLOR);
 
@@ -206,6 +205,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         int x = (this.getWidth() - strLen) / 2;
         int y = this.getHeight() / 10;
+
 
         g2d.drawString(PAUSE,x,y);
 
@@ -313,5 +313,9 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         message = "Focus Lost";
         repaint();
     }
+
+
+
+
 
 }

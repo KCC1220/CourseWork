@@ -42,7 +42,7 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
 
     private final GameFrame owner;
 
-    private boolean startClicked;
+    public static boolean startClicked;
     private boolean menuClicked;
     private boolean settingClicked;
 
@@ -266,7 +266,7 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
     }
 
     @Override
-    public void mousePressed(MouseEvent mouseEvent) {
+    public void  mousePressed(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
         if(startButton.contains(p)){
             startClicked = true;

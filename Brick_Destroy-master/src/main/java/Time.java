@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 public class Time {
      static JLabel  timelabel = new JLabel();
-     static int elapsedTime=0;
+     public static int elapsedTime=0;
      int seconds =0;
      int minutes=0;
      int hour=0;
@@ -39,11 +39,16 @@ public class Time {
         timer.stop();
     }
 
-    public int getSeconds(){
-        return seconds;
-    }
-    public int getMinutes(){
-        return minutes;
+    public String check(int elapsedTime){
+        Time.elapsedTime = elapsedTime;
+        hour = elapsedTime/36000000;
+        minutes = (elapsedTime/60000)%60;
+        seconds = (elapsedTime/1000)%60;
+        String seconds_string = String.format("%02d",seconds);
+        String minutes_string = String.format("%02d",minutes);
+        String hour_string = String.format("%02d",hour);
+        time = hour_string+":"+minutes_string+":"+seconds_string;
+        return time;
     }
 
 
