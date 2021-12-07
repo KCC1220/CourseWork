@@ -4,11 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 
 import static main.java.GameBoard.*;
 import static main.java.GameBoardModel.*;
-import static main.java.HighScore.highScore;
 
 public class GameBoardController {
     public static int test=0;

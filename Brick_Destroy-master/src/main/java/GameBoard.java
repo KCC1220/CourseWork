@@ -265,7 +265,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     @Override
     public void keyReleased(KeyEvent keyEvent) {
-        wall.player.stop();
+       wall.player.stop();
     }
 
     @Override
