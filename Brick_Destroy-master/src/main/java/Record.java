@@ -6,7 +6,7 @@ import java.io.*;
 public class Record {
     private final String path = "Brick_Destroy-master/src/main/resources/score.txt";
     FileReader fileReader;
-    public static String lastLine;
+    public static String lastLine,line;
 
     public void write(String s) throws IOException {
         FileWriter writer = new FileWriter(path,true);
@@ -17,9 +17,10 @@ public class Record {
     public void checkLastLine() throws IOException{
         fileReader = new FileReader(path);
         BufferedReader reader = new BufferedReader(fileReader);
-        while(reader.readLine()!=null){
-            lastLine = reader.readLine();
+        while((line=reader.readLine())!=null){
+            lastLine = line;
         }
+        reader.close();
     }
 
 }
