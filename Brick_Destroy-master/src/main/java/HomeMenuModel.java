@@ -15,6 +15,7 @@ public class HomeMenuModel {
     private static final String START_TEXT = "Start";
     private static final String EXIT_TEXT = "Exit";
     private static final String INFO_TEXT = "Info";
+    private static final String SCORE_TEXT = "Score";
 
     private static final Color TEXT_COLOR = new Color(255, 255, 255);//pure white
     private static final Color CLICKED_BUTTON_COLOR = Color.GREEN.darker().brighter();
@@ -24,6 +25,7 @@ public class HomeMenuModel {
 
     private final Rectangle menuFace;
     private final Rectangle startButton;
+    private final Rectangle scoreButton;
     private final Rectangle exitButton;
     private final Rectangle infoButton;
 
@@ -43,7 +45,7 @@ public class HomeMenuModel {
 
     public HomeMenuModel(Dimension area) {
         menuFace = new Rectangle(new Point(0,0),area);
-        imageURL = "Brick_Destroy-master/src/main/resources/photos/background.jpg";
+        imageURL = "Brick_Destroy-master/src/main/resources/photos/finalbackground.jpg";
         try {
             background = ImageIO.read(new File(imageURL));
         } catch (IOException e) {
@@ -51,6 +53,7 @@ public class HomeMenuModel {
         }
         Dimension btnDim = new Dimension(area.width / 3, area.height / 12);
         startButton = new Rectangle(btnDim);
+        scoreButton = new Rectangle(btnDim);
         exitButton = new Rectangle(btnDim);
         infoButton = new Rectangle(btnDim);
 
@@ -63,6 +66,9 @@ public class HomeMenuModel {
     }
     public BufferedImage getBackground(){
         return background;
+    }
+    public String getScoreText(){
+        return SCORE_TEXT;
     }
     public Rectangle getMenuFace(){return menuFace;}
     public Font getGreetingsFont(){
@@ -84,6 +90,7 @@ public class HomeMenuModel {
 
     public Rectangle getStartButton(){return startButton;}
     public Rectangle getExitButton(){return exitButton;}
+    public Rectangle getScoreButton(){return scoreButton;}
     public Rectangle getInfoButton(){return infoButton;}
     public String getGreetings(){return GREETINGS;}
     public String getGameTitle(){return GAME_TITLE;}

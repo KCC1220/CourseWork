@@ -39,12 +39,14 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
     Rectangle startButton;
     Rectangle exitButton ;
     Rectangle infoButton ;
+    Rectangle scoreButton;
 
     private final GameFrame owner;
 
     public static boolean startClicked;
     private boolean menuClicked;
     private boolean settingClicked;
+    private boolean scoreClicked;
 
     HomeMenuModel model;
     HomeMenuController controller;
@@ -152,10 +154,12 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
         Rectangle2D startRect = buttonFont.getStringBounds(model.getStartText(),frc);
         Rectangle2D exitRect = buttonFont.getStringBounds(model.getMenuText(),frc);
         Rectangle2D settingRect = buttonFont.getStringBounds(model.getSettingText(),frc);
+        Rectangle2D scoreRect = buttonFont.getStringBounds(model.getScoreText(),frc);
 
         startButton = model.getStartButton();
         exitButton = model.getExitButton();
         infoButton = model.getInfoButton();
+        scoreButton = model.getScoreButton();
 
         g2d.setFont(buttonFont);
 //this is the start button
@@ -184,7 +188,7 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
             g2d.draw(startButton);
             g2d.drawString(model.getStartText(),x,y);
         }
-//this is te exit button
+//this is the info button
         x = startButton.x;
         y = startButton.y;
 
@@ -214,11 +218,38 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
             g2d.draw(infoButton);
             g2d.drawString(model.getSettingText(),x,y);
         }
+//this is the score button
+        x = startButton.x;
+        y= infoButton.y;
+
+        y*=1.15;
+
+        scoreButton.setLocation(x,y);
+
+        x = (int)(scoreButton.getWidth() - scoreRect.getWidth()) /2;
+        y = (int)(scoreButton.getHeight() - scoreRect.getHeight()) / 2;
+
+        x += scoreButton.x;
+        y += scoreButton.y + (startButton.height * 0.9);
+
+        if(scoreClicked){
+            Color tmp = g2d.getColor();
+
+            g2d.setColor(model.getClickedButtonColor());
+            g2d.draw(scoreButton);
+            g2d.setColor(model.getClickedText());
+            g2d.drawString(model.getScoreText(),x,y);
+            g2d.setColor(tmp);
+        }
+        else{
+            g2d.draw(scoreButton);
+            g2d.drawString(model.getScoreText(),x,y);
+        }
 //this is the info button
         x = startButton.x;
-        y = infoButton.y;
+        y = scoreButton.y;
 
-        y *= 1.2;
+        y *= 1.15;
 
         exitButton.setLocation(x,y);
 
@@ -263,23 +294,28 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
         else if (infoButton.contains(p)){
             controller.enableInfo();
         }
+        else if(scoreButton.contains(p)){
+            ScoreBoard board = new ScoreBoard();
+        }
     }
 
     @Override
     public void  mousePressed(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
-        if(startButton.contains(p)){
+        if (startButton.contains(p)) {
             startClicked = true;
-            repaint(startButton.x,startButton.y,startButton.width+1,startButton.height+1);
+            repaint(startButton.x, startButton.y, startButton.width + 1, startButton.height + 1);
 
-        }
-        else if(exitButton.contains(p)){
+        } else if (exitButton.contains(p)) {
             menuClicked = true;
-            repaint(exitButton.x,exitButton.y,exitButton.width+1,exitButton.height+1);
-        }
-        else if (infoButton.contains(p)){
+            repaint(exitButton.x, exitButton.y, exitButton.width + 1, exitButton.height + 1);
+        } else if (infoButton.contains(p)) {
             settingClicked = true;
-            repaint(infoButton.x,infoButton.y,infoButton.width+1,infoButton.height+1);
+            repaint(infoButton.x, infoButton.y, infoButton.width + 1, infoButton.height + 1);
+
+        } else if (scoreButton.contains(p)) {
+            scoreClicked = true;
+            repaint(scoreButton.x, scoreButton.y, scoreButton.width + 1, scoreButton.height + 1);
 
         }
     }
@@ -298,6 +334,10 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
             settingClicked = false;
             repaint(infoButton.x,infoButton.y,infoButton.width+1,infoButton.height+1);
 
+        }
+        else if (scoreClicked) {
+            scoreClicked = false;
+            repaint(scoreButton.x, scoreButton.y, scoreButton.width + 1, scoreButton.height + 1);
         }
     }
 
@@ -320,7 +360,7 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
-        if(startButton.contains(p) || exitButton.contains(p) || infoButton.contains(p))
+        if(startButton.contains(p) || exitButton.contains(p) || infoButton.contains(p) || scoreButton.contains(p))
             this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         else
             this.setCursor(Cursor.getDefaultCursor());
