@@ -1,4 +1,7 @@
-package main.java;
+package main.java.controller;
+
+import main.java.GameFrame;
+import main.java.model.ScoreBoardModel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -10,6 +13,11 @@ import java.io.IOException;
 
 public class ScoreBoardController {
     ScoreBoardModel model1;
+
+    /**
+     * Method to set the content in the JTable.
+     *
+     */
     public void setTable() {
         model1 = new ScoreBoardModel();
         BufferedReader reader;
@@ -35,6 +43,7 @@ public class ScoreBoardController {
         }
     }
 
+
     public JTable getTable(){
         return model1.getTable();
     }
@@ -42,12 +51,26 @@ public class ScoreBoardController {
     public JButton getBack(){
         return model1.getBack();
     }
+
+    /**
+     * This method is to locate the window created to be stayed at the middle of player's screen.
+     *
+     * @param frame is the window that need to be located in the middle.
+     */
     public void autoLocate(JFrame frame) {
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (size.width - frame.getWidth()) / 2;
         int y = (size.height - frame.getHeight()) / 2;
         frame.setLocation(x, y);
     }
+
+    /**
+     *
+     * This method is to track player click on the button.
+     *
+     * @param e is a mouse tracking event.
+     * @param frame is to pass in the current window.
+     */
     public void actionPerformed(ActionEvent e, JFrame frame) {
         if (e.getSource() == getBack()){
             frame.dispose();
