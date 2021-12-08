@@ -48,7 +48,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         arcadeLevel = new ArcadeLevel(this);
 
 
-        homeMenu = new HomeMenuView(this,new Dimension(500,350));
+        homeMenu = new HomeMenuView(this,new Dimension(500,500));
 
         this.add(homeMenu,BorderLayout.CENTER);
 
