@@ -14,7 +14,10 @@ public class Audio extends Thread{
     static Clip clip;
     AudioInputStream audioStream;
 
-
+    /**
+     * This is the override method to thread.
+     * It will start the thread and play the BGM
+     */
     @Override
     public void run() {
         File file = new File("src/main/resources/music/BGM.wav");

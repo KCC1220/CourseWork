@@ -37,9 +37,7 @@ public class InfoController {
     public JLabel display9(){
         return model.display9 ;
     }
-    public JLabel display10(){
-        return model.display10 ;
-    }
+
 
     public JButton back(){
         return model.back;

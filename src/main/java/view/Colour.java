@@ -12,8 +12,7 @@ import java.awt.event.ActionListener;
 
 public class Colour extends JComponent implements ActionListener{
 
-    public ColourModel colourModel = new ColourModel();
-    ColourController colourController = new ColourController();
+    public ColourController colourController = new ColourController();
 
 
 
@@ -29,78 +28,56 @@ public class Colour extends JComponent implements ActionListener{
     public static JLabel label_b;
 
 
-
+    /**
+     * This is the Colour constructor which will show the choosing colour screen
+     */
     public Colour(){
-
-
         JPanel panel = new JPanel();
-
         label_b = new JLabel( "          BLUE");
         label_p = new JLabel("         GREEN");
-
-        colourModel.getP_red().addActionListener(this);
-
-        colourModel.getP_yellow().addActionListener(this);
-
-        colourModel.getP_green().addActionListener(this);
-
-        colourModel.getP_cyan().addActionListener(this);
-
-        colourModel.getP_blue().addActionListener(this);
-
-        colourModel.getP_magenta().addActionListener(this);
-
-        colourModel.getP_pink().addActionListener(this);
-
-        colourModel.getStart().addActionListener(this);
-
-        colourModel.getArcade().addActionListener(this);
-
-        colourModel.getB_red().addActionListener(this);
-
-
-        colourModel.getB_yellow().addActionListener(this);
-
-        colourModel.getB_green().addActionListener(this);
-
-        colourModel.getB_cyan().addActionListener(this);
-
-        colourModel.getB_blue().addActionListener(this);
-
-        colourModel.getB_magenta().addActionListener(this);
-
-        colourModel.getB_pink().addActionListener(this);
-
-        panel.add(colourModel.getLabelPlayer());
-        panel.add(colourModel.getLabelBall());
-
-        panel.add(colourModel.getP_red());
-        panel.add(colourModel.getB_red());
-        panel.add(colourModel.getP_yellow());
-        panel.add(colourModel.getB_yellow());
-        panel.add(colourModel.getP_green());
-        panel.add(colourModel.getB_green());
-        panel.add(colourModel.getP_cyan());
-        panel.add(colourModel.getB_cyan());
-        panel.add(colourModel.getP_blue());
-        panel.add(colourModel.getB_blue());
-        panel.add(colourModel.getP_magenta());
-        panel.add(colourModel.getB_magenta());
-        panel.add(colourModel.getP_pink());
-        panel.add(colourModel.getB_pink());
+        colourController.getP_red().addActionListener(this);
+        colourController.getP_yellow().addActionListener(this);
+        colourController.getP_green().addActionListener(this);
+        colourController.getP_cyan().addActionListener(this);
+        colourController.getP_blue().addActionListener(this);
+        colourController.getP_magenta().addActionListener(this);
+        colourController.getP_pink().addActionListener(this);
+        colourController.getStart().addActionListener(this);
+        colourController.getArcade().addActionListener(this);
+        colourController.getB_red().addActionListener(this);
+        colourController.getB_yellow().addActionListener(this);
+        colourController.getB_green().addActionListener(this);
+        colourController.getB_cyan().addActionListener(this);
+        colourController.getB_blue().addActionListener(this);
+        colourController.getB_magenta().addActionListener(this);
+        colourController.getB_pink().addActionListener(this);
+        panel.add(colourController.getLabelPlayer());
+        panel.add(colourController.getLabelBall());
+        panel.add(colourController.getP_red());
+        panel.add(colourController.getB_red());
+        panel.add(colourController.getP_yellow());
+        panel.add(colourController.getB_yellow());
+        panel.add(colourController.getP_green());
+        panel.add(colourController.getB_green());
+        panel.add(colourController.getP_cyan());
+        panel.add(colourController.getB_cyan());
+        panel.add(colourController.getP_blue());
+        panel.add(colourController.getB_blue());
+        panel.add(colourController.getP_magenta());
+        panel.add(colourController.getB_magenta());
+        panel.add(colourController.getP_pink());
+        panel.add(colourController.getB_pink());
         panel.add(label_p);
         panel.add(label_b);
-        panel.add(colourModel.getStart());
-        panel.add(colourModel.getArcade());
+        panel.add(colourController.getStart());
+        panel.add(colourController.getArcade());
         frame = new JFrame("CC");
         frame.setContentPane(panel);
-
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(200,350));
         frame.pack();
         frame.setResizable(false);
-        colourModel.autoLocate(frame);
-
+        colourController.autoLocate(frame);
         frame.setVisible(true);
 
 
@@ -108,20 +85,21 @@ public class Colour extends JComponent implements ActionListener{
     }
 
 
-
-
-
+    /**
+     * This method is to track the action preformed on the button in the screen
+     * @param e is to track the action performed by player
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         GameFrame gameframe;
-        if(e.getSource() == colourModel.getStart())
+        if(e.getSource() == colourController.getStart())
         {
             frame.dispose();
             gameframe = new GameFrame();
             gameframe.enableGameBoard();
 
         }
-        if(e.getSource() == colourModel.getArcade())
+        if(e.getSource() == colourController.getArcade())
         {
             frame.dispose();
             gameframe = new GameFrame();
@@ -130,99 +108,99 @@ public class Colour extends JComponent implements ActionListener{
         }
 
 
-        if (e.getSource() == colourModel.getP_yellow()){
+        if (e.getSource() == colourController.getP_yellow()){
             colourController.clickedButton(1);
-            label_p.setText(colourModel.getPColour());
+            label_p.setText(colourController.getPColour());
 
 
 
         }
-        if (e.getSource() == colourModel.getP_blue()){
+        if (e.getSource() == colourController.getP_blue()){
 
             colourController.clickedButton(2);
-            label_p.setText(colourModel.getPColour());
+            label_p.setText(colourController.getPColour());
 
 
         }
-        if (e.getSource() == colourModel.getP_green()){
+        if (e.getSource() == colourController.getP_green()){
 
             colourController.clickedButton(3);
-            label_p.setText(colourModel.getPColour());
+            label_p.setText(colourController.getPColour());
 
 
         }
-        if (e.getSource() == colourModel.getP_cyan()){
+        if (e.getSource() == colourController.getP_cyan()){
 
             colourController.clickedButton(4);
-            label_p.setText(colourModel.getPColour());
+            label_p.setText(colourController.getPColour());
 
 
         }
-        if (e.getSource() == colourModel.getP_red()){
+        if (e.getSource() == colourController.getP_red()){
 
             colourController.clickedButton(5);
-            label_p.setText(colourModel.getPColour());
+            label_p.setText(colourController.getPColour());
 
 
         }
-        if (e.getSource() == colourModel.getP_magenta()){
+        if (e.getSource() == colourController.getP_magenta()){
 
             colourController.clickedButton(6);
-            label_p.setText(colourModel.getPColour());
+            label_p.setText(colourController.getPColour());
 
 
         }
-        if (e.getSource() == colourModel.getP_pink()){
+        if (e.getSource() == colourController.getP_pink()){
 
             colourController.clickedButton(7);
-            label_p.setText(colourModel.getPColour());
+            label_p.setText(colourController.getPColour());
 
 
         }
-        if (e.getSource() == colourModel.getB_yellow()){
+        if (e.getSource() == colourController.getB_yellow()){
 
             colourController.clickedButton(8);
-            label_b.setText(colourModel.getBColour());
+            label_b.setText(colourController.getBColour());
 
         }
-        if (e.getSource() == colourModel.getB_blue()){
+        if (e.getSource() == colourController.getB_blue()){
 
             colourController.clickedButton(9);
-            label_b.setText(colourModel.getBColour());
+            label_b.setText(colourController.getBColour());
 
 
         }
-        if (e.getSource() == colourModel.getB_green()){
+        if (e.getSource() == colourController.getB_green()){
 
             colourController.clickedButton(10);
-            label_b.setText(colourModel.getBColour());
+            label_b.setText(colourController.getBColour());
 
 
         }
-        if (e.getSource() == colourModel.getB_cyan()){
+        if (e.getSource() == colourController.getB_cyan()){
 
             colourController.clickedButton(11);
-            label_b.setText(colourModel.getBColour());
+            label_b.setText(colourController.getBColour());
 
 
         }
-        if (e.getSource() == colourModel.getB_red()){
+        if (e.getSource() == colourController.getB_red()){
 
             colourController.clickedButton(12);
-            label_b.setText(colourModel.getBColour());
+            label_b.setText(colourController.getBColour());
 
 
         }
-        if (e.getSource() == colourModel.getB_magenta()){
+        if (e.getSource() == colourController.getB_magenta()){
 
             colourController.clickedButton(13);
-            label_b.setText(colourModel.getBColour());
+            label_b.setText(colourController.getBColour());
 
         }
-        if (e.getSource() == colourModel.getB_pink()){
+        if (e.getSource() == colourController.getB_pink()){
 
             colourController.clickedButton(14);
-            label_b.setText(colourModel.getBColour());
+            label_b.setText(colourController.getBColour());
 
 
         }

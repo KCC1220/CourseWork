@@ -11,8 +11,7 @@ public class InfoModel {
     String instruction4 ="After the desired colour being chosen, you can press the start button to load the game. ";
     String instruction5 = "After the game being loaded, you can press SPACE BAR to start the game. ";
     String control="To control the player, you can use A for moving to left while D for moving to the right or LEFT ARROW for moving to the left while RIGHT ARROW for moving to the right. ";
-    String mechanism1="The mission of te game is to break all the brick in the game. Therefore you will proceed to the next level.";
-    String mechanism2="You will have three chances to missed the ball.                            ";
+    String mechanism1="The mission of te game is to break all the brick in the game. Therefore you will proceed to the next level. You will have three chances to missed the ball.                      ";
     public JLabel display1 = new JLabel(introduction1);
     public JLabel display2 = new JLabel(introduction2);
     public JLabel display3 = new JLabel(instruction1);
@@ -22,7 +21,6 @@ public class InfoModel {
     public JLabel display7 = new JLabel(instruction5);
     public JLabel display8 = new JLabel(control);
     public JLabel display9  = new JLabel(mechanism1);
-    public JLabel display10 = new JLabel(mechanism2);
     public JButton back = new JButton("back");
 
 }

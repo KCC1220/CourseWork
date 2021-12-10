@@ -39,26 +39,26 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     private boolean gaming;
 
+    /**
+     * This is the constructor of game frame.
+     * It will prepare the window for drawing.
+     */
     public GameFrame(){
         super();
-
         gaming = false;
-
         this.setLayout(new BorderLayout());
-
         gameBoard = new GameBoard(this);
         arcadeLevel = new ArcadeLevel(this);
-
-
         homeMenu = new HomeMenuView(this,new Dimension(500,500));
-
         this.add(homeMenu,BorderLayout.CENTER);
-
         this.setUndecorated(true);
 
 
     }
 
+    /**
+     * This method is to initialise all the window with a title.
+     */
     public void initialize(){
         this.setTitle(DEF_TITLE);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -70,6 +70,9 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     }
 
+    /**
+     * This method is to enable the game board
+     */
     public void enableGameBoard(){
         this.dispose();
         this.remove(homeMenu);
@@ -80,6 +83,10 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.addWindowFocusListener(this);
 
     }
+
+    /**
+     * This method is to enable the tutorial game board
+     */
     public void enableArcadeGameBoard(){
         this.dispose();
         this.remove(homeMenu);
@@ -92,7 +99,9 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     }
 
 
-
+    /**
+     * This method is to enable the colour choosing screen
+     */
     public void enableColour(){
 
         this.dispose();
@@ -101,6 +110,10 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.setUndecorated(false);
         this.addWindowFocusListener(this);
     }
+
+    /**
+     * This method is to enable the info screen
+     */
     public void enableInfo(){
         this.dispose();
         this.remove(homeMenu);
@@ -110,9 +123,9 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     }
 
 
-
-
-
+    /**
+     * This method is to locate the window at the middle of player's screen
+     */
     private void autoLocate(){
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (size.width - this.getWidth()) / 2;
@@ -120,7 +133,10 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.setLocation(x,y);
     }
 
-
+    /**
+     * This method is the action when the player is on the window
+     * @param windowEvent is the tracking of window
+     */
     @Override
     public void windowGainedFocus(WindowEvent windowEvent) {
         /*
@@ -134,6 +150,10 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         gaming = true;
     }
 
+    /**
+     * This method is the action need to take when the window lost its focus
+     * @param windowEvent is to track the player window
+     */
     @Override
     public void windowLostFocus(WindowEvent windowEvent) {
 

@@ -314,6 +314,10 @@ public class ArcadeLevel extends JComponent implements KeyListener,MouseListener
     public void keyTyped(KeyEvent keyEvent) {
     }
 
+    /**
+     * This method is to track the key pressed by player
+     * @param keyEvent is the key pressed
+     */
     @Override
     public void keyPressed(KeyEvent keyEvent) {
         controller.keyPressed(keyEvent,this);

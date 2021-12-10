@@ -14,6 +14,11 @@ import java.awt.event.ActionListener;
 public class Info extends JComponent implements ActionListener {
     InfoController controller = new InfoController();
     JFrame frame = new JFrame();
+
+    /**
+     * This is the constructor for info
+     * This will show the info panel to player
+     */
     public Info() {
         JPanel panel = new JPanel();
 
@@ -26,7 +31,6 @@ public class Info extends JComponent implements ActionListener {
         panel.add(controller.display7());
         panel.add(controller.display8());
         panel.add(controller.display9());
-        panel.add(controller.display10());
         panel.add(controller.back());
         controller.back().addActionListener(this);
         frame.add(panel, BorderLayout.CENTER);
@@ -34,14 +38,16 @@ public class Info extends JComponent implements ActionListener {
         frame.setTitle("Instruction");
         frame.setSize( 1000, Colour.DEF_HEIGHT);
         controller.autoLocate(frame);
+        frame.setResizable(false);
         frame.setVisible(true);
 
     }
 
 
-
-
-
+    /**
+     * This is the method to track the action of player on button
+     * @param e is the action of player
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == controller.back()){

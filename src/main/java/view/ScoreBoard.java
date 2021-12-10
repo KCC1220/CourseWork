@@ -11,6 +11,10 @@ public class ScoreBoard extends JComponent implements ActionListener {
 
     JFrame frame = new JFrame();
     ScoreBoardController controller = new ScoreBoardController();
+    /**
+     * This is the constructor of Score board
+     * This will initialise and show the score board screen.
+     */
     public ScoreBoard(){
      JPanel panel = new JPanel();
      controller.setTable();
@@ -24,6 +28,11 @@ public class ScoreBoard extends JComponent implements ActionListener {
      controller.autoLocate(frame);
      frame.setVisible(true);
     }
+
+    /**
+     * This method is to track the action preformed
+     * @param e the action of the player
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         controller.actionPerformed(e,frame);

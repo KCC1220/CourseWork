@@ -39,7 +39,14 @@ public class DebugConsole extends JDialog implements WindowListener{
     private final Wall wall;
     private int type= 0;
 
-
+    /**
+     * This is the constructor of debug console.
+     * This is to create the dialog window on the screen
+     *
+     * @param owner is the window that game board draw on
+     * @param wall is the current wall object
+     * @param gameBoard is the game board
+     */
     public DebugConsole(JFrame owner, Wall wall, GameBoard gameBoard){
 
         this.wall = wall;
@@ -53,6 +60,14 @@ public class DebugConsole extends JDialog implements WindowListener{
 
         this.pack();
     }
+    /**
+     * This is the constructor of debug console.
+     * This is to create the dialog window on the screen
+     *
+     * @param owner is the window that game board draw on
+     * @param wall is the current wall object
+     * @param arcadeLevel is the game board
+     */
     public DebugConsole(JFrame owner, Wall wall, ArcadeLevel arcadeLevel){
 
         this.wall = wall;
@@ -66,6 +81,9 @@ public class DebugConsole extends JDialog implements WindowListener{
         this.pack();
     }
 
+    /**
+     * This method is to set all the properties of dialog window
+     */
     private void initialize(){
         this.setModal(true);
         this.setTitle(TITLE);
@@ -75,7 +93,9 @@ public class DebugConsole extends JDialog implements WindowListener{
         this.setFocusable(true);
     }
 
-
+    /**
+     * This method is to set the location of dialog window on the player screen
+     */
     private void setLocation(){
         int x = ((owner.getWidth() - this.getWidth()) / 2) + owner.getX();
         int y = ((owner.getHeight() - this.getHeight()) / 2) + owner.getY();
@@ -88,6 +108,10 @@ public class DebugConsole extends JDialog implements WindowListener{
 
     }
 
+    /**
+     * This method is the action when the window being closed
+     * @param windowEvent is to track what is the status of the window
+     */
     @Override
     public void windowClosing(WindowEvent windowEvent) {
         if(type==0){gameBoard.repaint();}
@@ -109,10 +133,14 @@ public class DebugConsole extends JDialog implements WindowListener{
 
     }
 
+    /**
+     * This method is the action when ths window being activated
+     * @param windowEvent is to track the window activity
+     */
     @Override
     public void windowActivated(WindowEvent windowEvent) {
         setLocation();
-        Ball b = wall.ball;
+        Ball b = Wall.ball;
         debugPanel.setValues(b.getSpeedX(),b.getSpeedY());
     }
 

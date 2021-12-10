@@ -7,7 +7,10 @@ public class HighScore {
     public static int highScore=0;
     String path1 = "src/main/resources/highscore1.txt";
 
-
+    /**
+     * This is the constructor of high score class.
+     * It will initiate to find the current high score
+     */
     public HighScore(){
 
         if(highScore==0){
@@ -15,6 +18,10 @@ public class HighScore {
         }
     }
 
+    /**
+     * This method is to get the current high score in the high score file
+     * @return the current high score
+     */
     public int GetHighScoreLvl(){
         FileReader readFile;
         BufferedReader reader=null;
@@ -38,6 +45,10 @@ public class HighScore {
         }
     }
 
+    /**
+     * This method is to check whether the player score beat the high score and set the score in the high score file
+     * @param score is player's score
+     */
     public void CheckScore(int score){
         String latest;
         File scoreFile;
@@ -68,6 +79,11 @@ public class HighScore {
 
         }
     }
+
+    /**
+     * This getter method is to get the high score
+     * @return high score
+     */
     public int getHighScore(){
         return highScore;
     }

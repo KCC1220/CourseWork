@@ -13,6 +13,16 @@ public class MakeLevelType {
     private static final int STEEL = 2;
     private static final int CEMENT = 3;
 
+    /**
+     * This method is to make clay wall.
+     *
+     * @param drawArea is the area to draw the wall
+     * @param brickCnt is the quantity of brick in the wall
+     * @param lineCnt is the number of line for the wall
+     * @param brickSizeRatio is the size of the brick
+     * @param type is the type of the brick
+     * @return wall of brick
+     */
     Brick[] makeSingleTypeLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int type){
         /*
           if brickCount is not divisible by line count,brickCount is adjusted to the biggest
@@ -53,7 +63,17 @@ public class MakeLevelType {
         return tmp;
 
     }
-
+    /**
+     * This method is to make chessboard wall.
+     *
+     * @param drawArea is the area to draw the wall
+     * @param brickCnt is the quantity of brick in the wall
+     * @param lineCnt is the number of line for the wall
+     * @param brickSizeRatio is the size of the brick
+     * @param typeA is the type of the brick
+     * @param typeB is the second type of brick
+     * @return wall of brick
+     */
     Brick[] makeChessboardLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int typeA, int typeB){
         /*
           if brickCount is not divisible by line count,brickCount is adjusted to the biggest
@@ -99,6 +119,16 @@ public class MakeLevelType {
         return tmp;
     }
 
+    /**
+     * This method is to make tutorial wall.
+     *
+     * @param drawArea is the area to draw the wall
+     * @param brickCnt is the quantity of brick in the wall
+     * @param lineCnt is the number of line for the wall
+     * @param brickSizeRatio is the size of the brick
+     * @param type is the type of the brick
+     * @return wall of brick
+     */
     Brick[] makeTutorialLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int type){
         /*
           if brickCount is not divisible by line count,brickCount is adjusted to the biggest
@@ -145,6 +175,13 @@ public class MakeLevelType {
         return tmp;
     }
 
+    /**
+     * This method is to make a single brick
+     * @param point is the point to create the brick
+     * @param size is the size of the brick
+     * @param type is the type iof the brick
+     * @return the brick rectangle object
+     */
     private Brick makeBrick(Point point, Dimension size, int type){
         return switch (type) {
             case CLAY -> new ClayBrick(point, size);

@@ -49,7 +49,9 @@ public class ColourModel {
     private static String label_p;
     private static String label_b;
 
-
+    /**
+     * This constructor is to initialise all the button in choosing colour menu
+     */
     public ColourModel(){
         p_red.setBounds(10,20,2,4);
         p_red.setBackground(Color.red);
@@ -115,104 +117,179 @@ public class ColourModel {
 
     }
 
+    /**
+     * This getter method is to get the label of "Ball"
+     * @return "Ball" label
+     */
     public JLabel getLabelBall(){return labelBall;}
-
+    /**
+     * This getter method is to get the label of "Player"
+     * @return "Player" label
+     */
     public JLabel getLabelPlayer(){return labelPlayer;}
-
+    /**
+     * This getter method is to get colour of player
+     * @return player's rectangle colour
+     */
     public Color getPlayerColour() {return pColour;}
-
-    public void autoLocate(JFrame frame){
-        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (size.width - frame.getWidth()) / 2;
-        int y = (size.height - frame.getHeight()) / 2;
-        frame.setLocation(x,y);
-    }
-
-
+    /**
+     * This setter method is to set the colour of ball
+     * @param color ball colour
+     */
     public void setBallColour(Color color){
         bColour = color;
     }
+    /**
+     * This setter method is to set the colour of player's rectangle
+     * @param color player's rectangle colour
+     */
     public void setPlayerColour(Color color){
         pColour = color;
     }
+    /**
+     * This getter method is to get colour of ball
+     * @return ball colour
+     */
     public Color getBallColour() {
         return bColour;
     }
-
+    /**
+     * This getter method is to get Player's Red Button
+     * @return Player's red button
+     */
     public JButton getP_red() {
         return p_red;
     }
-
+    /**
+     * This getter method is to get Player's Yellow Button
+     * @return Player's yellow button
+     */
     public JButton getP_yellow() {
         return p_yellow;
     }
-
+    /**
+     * This getter method is to get Player's Green Button
+     * @return Player's green button
+     */
     public JButton getP_green() {
         return p_green;
     }
-
+    /**
+     * This getter method is to get Player's Cyan Button
+     * @return Player's cyan button
+     */
     public JButton getP_cyan() {
         return p_cyan;
     }
-
+    /**
+     * This getter method is to get Player's Blue Button
+     * @return Player's blue button
+     */
     public JButton getP_blue() {
         return p_blue;
     }
-
+    /**
+     * This getter method is to get Player's Magenta Button
+     * @return Player's magenta button
+     */
     public JButton getP_magenta() {
         return p_magenta;
     }
-
+    /**
+     * This getter method is to get Player's Pink Button
+     * @return Player's pink button
+     */
     public JButton getP_pink() {
         return p_pink;
     }
-
+    /**
+     * This getter method is to get Ball's Red Button
+     * @return Ball's red button
+     */
     public JButton getB_red() {
         return b_red;
     }
-
+    /**
+     * This getter method is to get Ball's Yellow Button
+     * @return Ball's yellow button
+     */
     public JButton getB_yellow() {
         return b_yellow;
     }
-
+    /**
+     * This getter method is to get Ball's Green Button
+     * @return Ball's green button
+     */
     public JButton getB_green() {
         return b_green;
     }
-
+    /**
+     * This getter method is to get Ball's Cyan Button
+     * @return Ball's cyan button
+     */
     public JButton getB_cyan() {
         return b_cyan;
     }
-
+    /**
+     * This getter method is to get Ball's Blue Button
+     * @return Ball's blue button
+     */
     public JButton getB_blue() {
         return b_blue;
     }
-
+    /**
+     * This getter method is to get Ball's Magenta Button
+     * @return Ball's magenta button
+     */
     public JButton getB_magenta() {
         return b_magenta;
     }
-
+    /**
+     * This getter method is to get Ball's Pink Button
+     * @return Ball's pink button
+     */
     public JButton getB_pink() {
         return b_pink;
     }
-
+    /**
+     * This getter method will give the Tutorial Level Button
+     * * @return Tutorial button
+     */
     public JButton getArcade() {
         return arcade;
     }
-
+    /**
+     * This getter method will give the Start Level Button
+     * * @return Start button
+     */
     public JButton getStart() {
         return start;
     }
-
+    /**
+     * This method is to set the name of the colour of player's rectangle that player chosen
+     * @param color is the player chosen colour's name for player's rectangle
+     */
     public void setPColour(String color) {
         label_p = color;
     }
-
+    /**
+     * This getter method will return the name of the player's chosen colour for player's rectangle
+     * * @return name of the colour chosen for player's rectangle
+     */
     public String getPColour(){
         return label_p;
     }
+    /**
+     * This method is to set the name of the colour of ball that player chosen
+     * @param color is the player chosen colour's name for ball
+     */
     public void setBColour(String color){
         label_b = color;
     }
+    /**
+     * This getter method will return the name of the player's chosen colour for ball
+     * * @return name of the colour chosen for ball
+     */
     public String getBColour(){
         return label_b;
     }

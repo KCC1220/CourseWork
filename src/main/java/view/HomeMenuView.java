@@ -40,25 +40,25 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
     Rectangle infoButton ;
     Rectangle scoreButton;
 
-    private final GameFrame owner;
-
     public static boolean startClicked;
     private boolean menuClicked;
     private boolean settingClicked;
     private boolean scoreClicked;
 
-    HomeMenuModel model;
+
     HomeMenuController controller;
 
-
+    /**
+     * This is the constructor of home menu view
+     * @param owner is the frame created
+     * @param area is the area of the window
+     */
     public HomeMenuView(GameFrame owner, Dimension area){
         this.setFocusable(true);
         this.requestFocusInWindow();
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
-        this.owner = owner;
-        model = new HomeMenuModel(area);
-        controller = new HomeMenuController(this.owner);
+        controller = new HomeMenuController(owner,area);
         this.setPreferredSize(area);
 
 
@@ -67,12 +67,18 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
 
     }
 
-
+    /**
+     * This is the override method in JComponent to paint all the drawing component
+     * @param g the graphic component
+     */
     public void paint(Graphics g){
         drawMenu((Graphics2D)g);
     }
 
-
+    /**
+     * This is the method to draw everything in the method
+     * @param g2d is the graphic component
+     */
     public void drawMenu(Graphics2D g2d){
 
         drawContainer(g2d);
@@ -85,8 +91,8 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
         Color prevColor = g2d.getColor();
         Font prevFont = g2d.getFont();
 
-        double x = model.getMenuFace().getX();
-        double y = model.getMenuFace().getY();
+        double x = controller.getMenuFace().getX();
+        double y = controller.getMenuFace().getY();
 
         g2d.translate(x,y);
 
@@ -100,65 +106,77 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
         g2d.setColor(prevColor);
     }
 
+    /**
+     * This method is to draw the container for the main menu
+     * @param g2d is the graphics component
+     */
     private void drawContainer(Graphics2D g2d){
         Color prev = g2d.getColor();
 
 
 
-        g2d.drawImage(model.getBackground(), 0, 0,null);
+        g2d.drawImage(controller.getBackground(), 0, 0,null);
 
 
         g2d.setColor(prev);
     }
 
+    /**
+     * This method is to draw all the text in the home menu
+     * @param g2d is the graphics component
+     */
     private void drawText(Graphics2D g2d){
 
-        g2d.setColor(model.getTextColor());
+        g2d.setColor(controller.getTextColor());
 
         FontRenderContext frc = g2d.getFontRenderContext();
 
-        Rectangle2D greetingsRect = model.getGreetingsFont().getStringBounds(model.getGreetings(),frc);
-        Rectangle2D gameTitleRect = model.getGameTitleFont().getStringBounds(model.getGreetings(),frc);
-        Rectangle2D creditsRect = model.getCreditsFont().getStringBounds(model.getCredits(),frc);
+        Rectangle2D greetingsRect = controller.getGreetingsFont().getStringBounds(controller.getGreetings(),frc);
+        Rectangle2D gameTitleRect = controller.getGameTitleFont().getStringBounds(controller.getGreetings(),frc);
+        Rectangle2D creditsRect = controller.getCreditsFont().getStringBounds(controller.getCredits(),frc);
 
         int sX,sY;
 
-        sX = (int)(model.getMenuFace().getWidth() - greetingsRect.getWidth()) / 2;
-        sY = (int)(model.getMenuFace().getHeight() / 6);
+        sX = (int)(controller.getMenuFace().getWidth() - greetingsRect.getWidth()) / 2;
+        sY = (int)(controller.getMenuFace().getHeight() / 6);
 
-        g2d.setFont(model.getGreetingsFont());
-        g2d.drawString(model.getGreetings(),sX,sY);
+        g2d.setFont(controller.getGreetingsFont());
+        g2d.drawString(controller.getGreetings(),sX,sY);
 
-        sX = (int)(model.getMenuFace().getWidth() - gameTitleRect.getWidth()) / 2;
+        sX = (int)(controller.getMenuFace().getWidth() - gameTitleRect.getWidth()) / 2;
         sY += (int) gameTitleRect.getHeight() * 1.1;//add 10% of String height between the two strings
 
-        g2d.setFont(model.getGameTitleFont());
-        g2d.drawString(model.getGameTitle(),sX,sY);
+        g2d.setFont(controller.getGameTitleFont());
+        g2d.drawString(controller.getGameTitle(),sX,sY);
 
-        sX = (int)(model.getMenuFace().getWidth() - creditsRect.getWidth()) / 2;
+        sX = (int)(controller.getMenuFace().getWidth() - creditsRect.getWidth()) / 2;
         sY += (int) creditsRect.getHeight() * 1.1;
 
-        g2d.setFont(model.getCreditsFont());
-        g2d.drawString(model.getCredits(),sX,sY);
+        g2d.setFont(controller.getCreditsFont());
+        g2d.drawString(controller.getCredits(),sX,sY);
 
 
     }
 
+    /**
+     * This method is to draw all the button on the home menu screen
+     * @param g2d is the graphics component
+     */
     private void drawButton(Graphics2D g2d){
 
         FontRenderContext frc = g2d.getFontRenderContext();
-        Rectangle menuFace = model.getMenuFace();
-        Font buttonFont = model.getButtonFont();
+        Rectangle menuFace = controller.getMenuFace();
+        Font buttonFont = controller.getButtonFont();
 
-        Rectangle2D startRect = buttonFont.getStringBounds(model.getStartText(),frc);
-        Rectangle2D exitRect = buttonFont.getStringBounds(model.getMenuText(),frc);
-        Rectangle2D settingRect = buttonFont.getStringBounds(model.getSettingText(),frc);
-        Rectangle2D scoreRect = buttonFont.getStringBounds(model.getScoreText(),frc);
+        Rectangle2D startRect = buttonFont.getStringBounds(controller.getStartText(),frc);
+        Rectangle2D exitRect = buttonFont.getStringBounds(controller.getExitText(),frc);
+        Rectangle2D infoRect = buttonFont.getStringBounds(controller.getInfoText(),frc);
+        Rectangle2D scoreRect = buttonFont.getStringBounds(controller.getScoreText(),frc);
 
-        startButton = model.getStartButton();
-        exitButton = model.getExitButton();
-        infoButton = model.getInfoButton();
-        scoreButton = model.getScoreButton();
+        startButton = controller.getStartButton();
+        exitButton = controller.getExitButton();
+        infoButton = controller.getInfoButton();
+        scoreButton = controller.getScoreButton();
 
         g2d.setFont(buttonFont);
 //this is the start button
@@ -177,15 +195,15 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
 
         if(startClicked){
             Color tmp = g2d.getColor();
-            g2d.setColor(model.getClickedButtonColor());
+            g2d.setColor(controller.getClickedButtonColor());
             g2d.draw(startButton);
-            g2d.setColor(model.getClickedText());
-            g2d.drawString(model.getStartText(),x,y);
+            g2d.setColor(controller.getClickedText());
+            g2d.drawString(controller.getStartText(),x,y);
             g2d.setColor(tmp);
         }
         else{
             g2d.draw(startButton);
-            g2d.drawString(model.getStartText(),x,y);
+            g2d.drawString(controller.getStartText(),x,y);
         }
 //this is the info button
         x = startButton.x;
@@ -198,8 +216,8 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
 
 
 
-        x = (int)(infoButton.getWidth() - settingRect.getWidth()) / 2;
-        y = (int)(infoButton.getHeight() - settingRect.getHeight()) / 2;
+        x = (int)(infoButton.getWidth() - infoRect.getWidth()) / 2;
+        y = (int)(infoButton.getHeight() - infoRect.getHeight()) / 2;
 
         x += infoButton.x;
         y += infoButton.y + (startButton.height * 0.9);
@@ -207,15 +225,15 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
         if(settingClicked){
             Color tmp = g2d.getColor();
 
-            g2d.setColor(model.getClickedButtonColor());
+            g2d.setColor(controller.getClickedButtonColor());
             g2d.draw(infoButton);
-            g2d.setColor(model.getClickedText());
-            g2d.drawString(model.getSettingText(),x,y);
+            g2d.setColor(controller.getClickedText());
+            g2d.drawString(controller.getInfoText(),x,y);
             g2d.setColor(tmp);
         }
         else{
             g2d.draw(infoButton);
-            g2d.drawString(model.getSettingText(),x,y);
+            g2d.drawString(controller.getInfoText(),x,y);
         }
 //this is the score button
         x = startButton.x;
@@ -234,15 +252,15 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
         if(scoreClicked){
             Color tmp = g2d.getColor();
 
-            g2d.setColor(model.getClickedButtonColor());
+            g2d.setColor(controller.getClickedButtonColor());
             g2d.draw(scoreButton);
-            g2d.setColor(model.getClickedText());
-            g2d.drawString(model.getScoreText(),x,y);
+            g2d.setColor(controller.getClickedText());
+            g2d.drawString(controller.getScoreText(),x,y);
             g2d.setColor(tmp);
         }
         else{
             g2d.draw(scoreButton);
-            g2d.drawString(model.getScoreText(),x,y);
+            g2d.drawString(controller.getScoreText(),x,y);
         }
 //this is the info button
         x = startButton.x;
@@ -264,15 +282,15 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
         if(menuClicked){
             Color tmp = g2d.getColor();
 
-            g2d.setColor(model.getClickedButtonColor());
+            g2d.setColor(controller.getClickedButtonColor());
             g2d.draw(exitButton);
-            g2d.setColor(model.getClickedText());
-            g2d.drawString(model.getMenuText(),x,y);
+            g2d.setColor(controller.getClickedText());
+            g2d.drawString(controller.getExitText(),x,y);
             g2d.setColor(tmp);
         }
         else{
             g2d.draw(exitButton);
-            g2d.drawString(model.getMenuText(),x,y);
+            g2d.drawString(controller.getExitText(),x,y);
         }
 
 
@@ -280,7 +298,10 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
 
     }
 
-
+    /**
+     * This method is to track when the player click on the button on home menu
+     * @param mouseEvent is the mouse cliked event
+     */
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
@@ -298,6 +319,10 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
         }
     }
 
+    /**
+     * This method is to track the player pressed on the button
+     * @param mouseEvent is the tracking of player mouse's action
+     */
     @Override
     public void  mousePressed(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
@@ -319,6 +344,10 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
         }
     }
 
+    /**
+     * This method is to track when the player release press or clicked on the button
+     * @param mouseEvent is the action performed on th player's mouse
+     */
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
         if(startClicked ){
@@ -356,6 +385,10 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
 
     }
 
+    /**
+     * This method is to track when the user move on the button
+     * @param mouseEvent is to track the action of the player mouse
+     */
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
