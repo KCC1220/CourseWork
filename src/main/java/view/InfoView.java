@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 
 
 
-public class Info extends JComponent implements ActionListener {
+public class InfoView extends JComponent implements ActionListener {
     InfoController controller = new InfoController();
     JFrame frame = new JFrame();
 
@@ -19,7 +19,7 @@ public class Info extends JComponent implements ActionListener {
      * This is the constructor for info
      * This will show the info panel to player
      */
-    public Info() {
+    public InfoView() {
         JPanel panel = new JPanel();
 
         panel.add(controller.display1());
@@ -36,7 +36,7 @@ public class Info extends JComponent implements ActionListener {
         frame.add(panel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Instruction");
-        frame.setSize( 1000, Colour.DEF_HEIGHT);
+        frame.setSize( 1000, 300);
         controller.autoLocate(frame);
         frame.setResizable(false);
         frame.setVisible(true);

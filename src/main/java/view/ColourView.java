@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class Colour extends JComponent implements ActionListener{
+public class ColourView extends JComponent implements ActionListener{
 
     public ColourController colourController = new ColourController();
 
@@ -31,7 +31,7 @@ public class Colour extends JComponent implements ActionListener{
     /**
      * This is the Colour constructor which will show the choosing colour screen
      */
-    public Colour(){
+    public ColourView(){
         JPanel panel = new JPanel();
         label_b = new JLabel( "          BLUE");
         label_p = new JLabel("         GREEN");

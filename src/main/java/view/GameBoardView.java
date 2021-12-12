@@ -20,7 +20,7 @@ package main.java.view;
 import main.java.*;
 import main.java.ball.Ball;
 import main.java.bricks.Brick;
-import main.java.controller.ArcadeLevelController;
+import main.java.controller.GameBoardController;
 import main.java.debugpanel.DebugConsole;
 import main.java.level.Wall;
 import main.java.model.ColourModel;
@@ -31,7 +31,7 @@ import java.awt.event.*;
 import java.awt.font.FontRenderContext;
 
 
-public class ArcadeLevel extends JComponent implements KeyListener,MouseListener,MouseMotionListener {
+public class GameBoardView extends JComponent implements KeyListener,MouseListener,MouseMotionListener {
 
     private static final String CONTINUE = "Continue";
     private static final String RESTART = "Restart";
@@ -53,6 +53,7 @@ public class ArcadeLevel extends JComponent implements KeyListener,MouseListener
 
     public static  String message;
     private String timing;
+    private String highscore;
     private String seconds;
 
 
@@ -70,15 +71,16 @@ public class ArcadeLevel extends JComponent implements KeyListener,MouseListener
 
 
 
-    ArcadeLevelController controller = new ArcadeLevelController();
+    GameBoardController controller = new GameBoardController();
+
 
     /**
-     * This is the constructor of this Arcade Level class.
+     * This is the constructor of this GameBoard class.
      * This constructor will initiate the game session
      *
      * @param owner is to prepare the window for paint method to paint on it
      */
-    public ArcadeLevel(JFrame owner){
+    public GameBoardView(JFrame owner){
 
         super();
         strLen = 0;
@@ -87,24 +89,25 @@ public class ArcadeLevel extends JComponent implements KeyListener,MouseListener
 
         controller.initialize(this);
         message = "";
+        highscore="";
         timing ="";
         seconds = "";
         wall = controller.getWall();
         DebugConsole debugConsole = controller.setDebugConsole(owner, wall, this);
         //initialize the first level
-        wall.nextArcadeLevel();
+        wall.nextLevel();
 
         gameTimer = new Timer(10,e ->{
             controller.move();
             controller.findImpacts();
-            message = String.format("Bricks: %d Balls %d",controller.getBrickCount(),controller.getBallCount());
-            timing = String.format("%02d : %02d",controller.getMinutes(),controller.getSeconds());
-            seconds = String.format("%02d",controller.getElapsedTime()/1000);
+            message = String.format("Bricks: %d / Balls %d",controller.getBrickCount(),controller.getBallCount());
+            timing = String.format("Time = %02d : %02d",controller.getMinutes(),controller.getSeconds());
+            highscore = String.format("Best Time For All Level:%d",controller.getHighScore());
+            seconds = String.format("Score: %02d",controller.getElapsedTime()/1000);
             controller.check(this);
         });
 
     }
-
     /**
      * This is a method that was overwritten in JComponent.
      *
@@ -119,8 +122,9 @@ public class ArcadeLevel extends JComponent implements KeyListener,MouseListener
         g2d.setFont(style);
         g2d.setColor(Color.BLUE);
         g2d.drawString(message,30,500);
+        g2d.drawString(highscore,30,520);
         g2d.drawString(timing,30,480);
-        g2d.drawString(seconds,550,480);
+        g2d.drawString(seconds,450,480);
         g2d.drawLine(0,450,600,450);
 
         drawBall(Wall.ball,g2d);
@@ -136,7 +140,6 @@ public class ArcadeLevel extends JComponent implements KeyListener,MouseListener
 
         Toolkit.getDefaultToolkit().sync();
     }
-
     /**
      * This method is to clear everything that is currently painted in the window.
      *
@@ -149,7 +152,6 @@ public class ArcadeLevel extends JComponent implements KeyListener,MouseListener
         g2d.fillRect(0,0,getWidth(),getHeight());
         g2d.setColor(tmp);
     }
-
     /**
      *This method is to draw bricks in the window.
      *
@@ -169,7 +171,6 @@ public class ArcadeLevel extends JComponent implements KeyListener,MouseListener
 
         g2d.setColor(tmp);
     }
-
     /**
      * This method is to draw the ball on the screen.
      *
@@ -190,14 +191,12 @@ public class ArcadeLevel extends JComponent implements KeyListener,MouseListener
 
         g2d.setColor(tmp);
     }
-
     /**
      * This method is to draw the player rectangle on the screen.
      *
      * @param p get the type of player that need to be drawn on the screen.
      * @param g2d is the same as previous.
      */
-
     private void drawPlayer(Player p, Graphics2D g2d){
         Color tmp = g2d.getColor();
         ColourModel model = new ColourModel();
@@ -211,7 +210,6 @@ public class ArcadeLevel extends JComponent implements KeyListener,MouseListener
 
         g2d.setColor(tmp);
     }
-
     /**
      * This method is to draw pause menu on the screen.
      *
@@ -221,7 +219,6 @@ public class ArcadeLevel extends JComponent implements KeyListener,MouseListener
         obscureGameBoard(g2d);
         drawPauseMenu(g2d);
     }
-
     /**
      * This method is to make the window obscure.
      *
@@ -241,7 +238,6 @@ public class ArcadeLevel extends JComponent implements KeyListener,MouseListener
         g2d.setComposite(tmp);
         g2d.setColor(tmpColor);
     }
-
     /**
      * This method is to draw the Pause Menu on the obscure window.
      *
@@ -309,21 +305,18 @@ public class ArcadeLevel extends JComponent implements KeyListener,MouseListener
         g2d.setColor(tmpColor);
     }
 
-
     @Override
     public void keyTyped(KeyEvent keyEvent) {
     }
-
     /**
      * This method is to track the key pressed by player
      * @param keyEvent is the key pressed
      */
     @Override
     public void keyPressed(KeyEvent keyEvent) {
-        controller.keyPressed(keyEvent,this);
+            controller.keyPressed(keyEvent,this);
 
     }
-
     /**
      * This method is to track whether ths player is on focus or not.
      *
@@ -331,7 +324,7 @@ public class ArcadeLevel extends JComponent implements KeyListener,MouseListener
      */
     @Override
     public void keyReleased(KeyEvent keyEvent) {
-        Wall.player.stop();
+       Wall.player.stop();
     }
 
     /**
@@ -344,7 +337,7 @@ public class ArcadeLevel extends JComponent implements KeyListener,MouseListener
         controller.mouseClicked(mouseEvent,this);
 
 
-    }
+        }
 
 
     @Override
@@ -371,7 +364,6 @@ public class ArcadeLevel extends JComponent implements KeyListener,MouseListener
     public void mouseDragged(MouseEvent mouseEvent) {
 
     }
-
     /**
      * This method is to track when the player cursor go pass a button or stay on a button without clicking.
      *
@@ -382,7 +374,6 @@ public class ArcadeLevel extends JComponent implements KeyListener,MouseListener
         controller.mouseMoved(mouseEvent,this);
 
     }
-
     /**
      * This method is to stop the game when the player is on another window.
      */

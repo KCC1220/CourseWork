@@ -315,7 +315,7 @@ public class HomeMenuView extends JComponent implements MouseListener, MouseMoti
             controller.enableInfo();
         }
         else if(scoreButton.contains(p)){
-            ScoreBoard board = new ScoreBoard();
+            ScoreBoardView board = new ScoreBoardView();
         }
     }
 

@@ -20,7 +20,7 @@ package main.java.view;
 import main.java.*;
 import main.java.ball.Ball;
 import main.java.bricks.Brick;
-import main.java.controller.GameBoardController;
+import main.java.controller.TutorialLevelController;
 import main.java.debugpanel.DebugConsole;
 import main.java.level.Wall;
 import main.java.model.ColourModel;
@@ -31,7 +31,7 @@ import java.awt.event.*;
 import java.awt.font.FontRenderContext;
 
 
-public class GameBoard extends JComponent implements KeyListener,MouseListener,MouseMotionListener {
+public class TutorialLevelView extends JComponent implements KeyListener,MouseListener,MouseMotionListener {
 
     private static final String CONTINUE = "Continue";
     private static final String RESTART = "Restart";
@@ -51,7 +51,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     private final Wall wall;
 
-    public static  String message;
+    public static String message;
     private String timing;
     private String seconds;
 
@@ -70,16 +70,15 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
 
 
-    GameBoardController controller = new GameBoardController();
-
+    TutorialLevelController controller = new TutorialLevelController();
 
     /**
-     * This is the constructor of this GameBoard class.
+     * This is the constructor of this Arcade Level class.
      * This constructor will initiate the game session
      *
      * @param owner is to prepare the window for paint method to paint on it
      */
-    public GameBoard(JFrame owner){
+    public TutorialLevelView(JFrame owner){
 
         super();
         strLen = 0;
@@ -93,18 +92,19 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         wall = controller.getWall();
         DebugConsole debugConsole = controller.setDebugConsole(owner, wall, this);
         //initialize the first level
-        wall.nextLevel();
+        wall.nextArcadeLevel();
 
         gameTimer = new Timer(10,e ->{
             controller.move();
             controller.findImpacts();
-            message = String.format("Bricks: %d Balls %d"+ "   Best Time For All Level:%d",controller.getBrickCount(),controller.getBallCount(), controller.getHighScore());
+            message = String.format("Bricks: %d Balls %d",controller.getBrickCount(),controller.getBallCount());
             timing = String.format("%02d : %02d",controller.getMinutes(),controller.getSeconds());
             seconds = String.format("%02d",controller.getElapsedTime()/1000);
             controller.check(this);
         });
 
     }
+
     /**
      * This is a method that was overwritten in JComponent.
      *
@@ -136,6 +136,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         Toolkit.getDefaultToolkit().sync();
     }
+
     /**
      * This method is to clear everything that is currently painted in the window.
      *
@@ -148,6 +149,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         g2d.fillRect(0,0,getWidth(),getHeight());
         g2d.setColor(tmp);
     }
+
     /**
      *This method is to draw bricks in the window.
      *
@@ -167,6 +169,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         g2d.setColor(tmp);
     }
+
     /**
      * This method is to draw the ball on the screen.
      *
@@ -187,12 +190,14 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         g2d.setColor(tmp);
     }
+
     /**
      * This method is to draw the player rectangle on the screen.
      *
      * @param p get the type of player that need to be drawn on the screen.
      * @param g2d is the same as previous.
      */
+
     private void drawPlayer(Player p, Graphics2D g2d){
         Color tmp = g2d.getColor();
         ColourModel model = new ColourModel();
@@ -206,6 +211,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         g2d.setColor(tmp);
     }
+
     /**
      * This method is to draw pause menu on the screen.
      *
@@ -215,6 +221,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         obscureGameBoard(g2d);
         drawPauseMenu(g2d);
     }
+
     /**
      * This method is to make the window obscure.
      *
@@ -234,6 +241,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         g2d.setComposite(tmp);
         g2d.setColor(tmpColor);
     }
+
     /**
      * This method is to draw the Pause Menu on the obscure window.
      *
@@ -301,18 +309,21 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         g2d.setColor(tmpColor);
     }
 
+
     @Override
     public void keyTyped(KeyEvent keyEvent) {
     }
+
     /**
      * This method is to track the key pressed by player
      * @param keyEvent is the key pressed
      */
     @Override
     public void keyPressed(KeyEvent keyEvent) {
-            controller.keyPressed(keyEvent,this);
+        controller.keyPressed(keyEvent,this);
 
     }
+
     /**
      * This method is to track whether ths player is on focus or not.
      *
@@ -320,7 +331,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
      */
     @Override
     public void keyReleased(KeyEvent keyEvent) {
-       Wall.player.stop();
+        Wall.player.stop();
     }
 
     /**
@@ -333,7 +344,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         controller.mouseClicked(mouseEvent,this);
 
 
-        }
+    }
 
 
     @Override
@@ -360,6 +371,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     public void mouseDragged(MouseEvent mouseEvent) {
 
     }
+
     /**
      * This method is to track when the player cursor go pass a button or stay on a button without clicking.
      *
@@ -370,6 +382,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         controller.mouseMoved(mouseEvent,this);
 
     }
+
     /**
      * This method is to stop the game when the player is on another window.
      */

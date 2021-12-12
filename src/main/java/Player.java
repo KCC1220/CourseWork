@@ -107,7 +107,7 @@ public class Player {
     }
 
     /**
-     * This method is to get the player face
+     * This method is to get the player rectangle
      */
     public Shape getPlayerFace(){
         return  playerFace;

@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ScoreBoard extends JComponent implements ActionListener {
+public class ScoreBoardView extends JComponent implements ActionListener {
 
     JFrame frame = new JFrame();
     ScoreBoardController controller = new ScoreBoardController();
@@ -15,7 +15,7 @@ public class ScoreBoard extends JComponent implements ActionListener {
      * This is the constructor of Score board
      * This will initialise and show the score board screen.
      */
-    public ScoreBoard(){
+    public ScoreBoardView(){
      JPanel panel = new JPanel();
      controller.setTable();
      panel.add(add(new JScrollPane(controller.getTable())));

@@ -5,14 +5,14 @@ import main.java.level.Wall;
 import main.java.scoring.Record;
 import main.java.scoring.HighScore;
 import main.java.scoring.Time;
-import main.java.view.GameBoard;
+import main.java.view.GameBoardView;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
-import static main.java.view.GameBoard.MUTE;
-import static main.java.view.GameBoard.message;
+import static main.java.view.GameBoardView.MUTE;
+import static main.java.view.GameBoardView.message;
 
 public class GameBoardModel {
 
@@ -20,7 +20,7 @@ public class GameBoardModel {
     private static final int TEXT_SIZE = 30;
     private static final int DEF_WIDTH = 600;
     private static final int DEF_HEIGHT = 550;
-    public static Wall wall;
+    public  static Wall wall;
     public static boolean showPauseMenu;
     private final Font menuFont;
     public static DebugConsole debugConsole;
@@ -54,7 +54,7 @@ public class GameBoardModel {
      * @param gameBoard is the current game board
      * @return is the object og debug console
      */
-    public DebugConsole setDebugConsole(JFrame frame, Wall wall, GameBoard gameBoard){
+    public DebugConsole setDebugConsole(JFrame frame, Wall wall, GameBoardView gameBoard){
         debugConsole = new DebugConsole(frame,wall,gameBoard);
         return debugConsole;
     }

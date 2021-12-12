@@ -211,7 +211,6 @@ public class Wall {
                     ball.reverseY();
                     return b.setImpact(ball.up, Crack.DOWN);
                 }
-
                 //Horizontal Impact
                 case Brick.LEFT_IMPACT -> {
                     ball.reverseX();

@@ -1,18 +1,17 @@
 package main.java.model;
 
-import main.java.view.ArcadeLevel;
+
 import main.java.debugpanel.DebugConsole;
 import main.java.scoring.Time;
 import main.java.level.Wall;
+import main.java.view.TutorialLevelView;
 
 import javax.swing.*;
 import java.awt.*;
 
 
-import static main.java.view.ArcadeLevel.MUTE;
-import static main.java.view.ArcadeLevel.message;
 
-public class ArcadeLevelModel {
+public class TutorialLevelModel {
     private static final int TEXT_SIZE = 30;
     private static final int DEF_WIDTH = 600;
     private static final int DEF_HEIGHT = 550;
@@ -33,7 +32,7 @@ public class ArcadeLevelModel {
      * This is the constructor of Arcade Level Model
      * It initialise all the variable that we need
      */
-    public ArcadeLevelModel(){
+    public TutorialLevelModel(){
         showPauseMenu = false;
 
         style = new Font("Noto Mono",Font.BOLD,15);
@@ -50,7 +49,7 @@ public class ArcadeLevelModel {
      * @param gameBoard is the current game board
      * @return is the object og debug console
      */
-    public DebugConsole setDebugConsole(JFrame frame, Wall wall, ArcadeLevel gameBoard){
+    public DebugConsole setDebugConsole(JFrame frame, Wall wall, TutorialLevelView gameBoard){
         debugConsole = new DebugConsole(frame,wall,gameBoard);
         return debugConsole;
     }
@@ -75,7 +74,7 @@ public class ArcadeLevelModel {
      * This method is to set the message on the screen to Game Over
      */
     public void gameOver(){
-        message = "Game Over";
+        TutorialLevelView.message = "Game Over";
     }
 
     /**
@@ -83,7 +82,7 @@ public class ArcadeLevelModel {
      */
     public void nextLevel(){
         totalTime+=time.elapsed()/1000;
-        message = "Go to Next Level   Time Taken in Sec: "+(time.elapsed()/1000);
+        TutorialLevelView.message = "Go to Next Level   Time Taken in Sec: "+(time.elapsed()/1000);
     }
 
     /**
@@ -92,28 +91,28 @@ public class ArcadeLevelModel {
      */
     public void doneLevel(){
         totalTime+=time.elapsed()/1000;
-        message = "ALL WALLS DESTROYED   Time Taken in Sec: "+totalTime;
+        TutorialLevelView.message = "ALL WALLS DESTROYED   Time Taken in Sec: "+totalTime;
     }
 
     /**
      * This method is to set message when user clicked the restart in pause menu
      */
     public void restartLevel(){
-        message = "Restarting Game...";
+        TutorialLevelView.message = "Restarting Game...";
     }
 
     /**
      * This method is the action to set MUTE message in pause menu
      */
     public void setMute(){
-        MUTE = "Un Mute BGM";
+        TutorialLevelView.MUTE = "Un Mute BGM";
     }
 
     /**
      * This method is to set Un Mute message in pause menu
      */
     public void setUnMute(){
-        MUTE = "Mute BGM";
+        TutorialLevelView.MUTE = "Mute BGM";
     }
 
     /**

@@ -4,19 +4,20 @@ import main.java.*;
 import main.java.debugpanel.DebugConsole;
 import main.java.level.Wall;
 import main.java.model.*;
-import main.java.view.ArcadeLevel;
+import main.java.view.TutorialLevelView;
+
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-import static main.java.view.ArcadeLevel.*;
-import static main.java.model.ArcadeLevelModel.*;
+import static main.java.model.TutorialLevelModel.*;
+import static main.java.view.TutorialLevelView.*;
 
-public class ArcadeLevelController {
+public class TutorialLevelController {
     public static int test=0;
-    ArcadeLevelModel model = new ArcadeLevelModel();
+    TutorialLevelModel model = new TutorialLevelModel();
 
     /**
      * This method is to initiate the player and the ball to move.
@@ -29,7 +30,7 @@ public class ArcadeLevelController {
      * This method is to create the window created at the middle of player screen.
      * @param board is the window that need to be set
      */
-    public void initialize(ArcadeLevel board){
+    public void initialize(TutorialLevelView board){
         board.setPreferredSize(new Dimension(model.getDefWidth(),550));
         board.setFocusable(true);
         board.requestFocusInWindow();
@@ -58,7 +59,7 @@ public class ArcadeLevelController {
      *
      * @param gameBoard is the game play window
      */
-    public void check(ArcadeLevel gameBoard){
+    public void check(TutorialLevelView gameBoard){
         if(wall.isBallLost()){
             if(wall.ballEnd()){
                 wall.wallReset();
@@ -168,7 +169,7 @@ public class ArcadeLevelController {
      * @param keyEvent is the key that the player pressed.
      * @param gameBoard is the gameplay window,
      */
-    public void keyPressed(KeyEvent keyEvent, ArcadeLevel gameBoard) {
+    public void keyPressed(KeyEvent keyEvent, TutorialLevelView gameBoard) {
 
         switch(keyEvent.getKeyCode()){
             case KeyEvent.VK_LEFT:
@@ -220,7 +221,7 @@ public class ArcadeLevelController {
      * @param mouseEvent is the player's mouse progress.
      * @param gameBoard is the gameplay window.
      */
-    public void mouseClicked(MouseEvent mouseEvent, ArcadeLevel gameBoard) {
+    public void mouseClicked(MouseEvent mouseEvent, TutorialLevelView gameBoard) {
         Point p = mouseEvent.getPoint();
         if (!showPauseMenu)
             return;
@@ -264,7 +265,7 @@ public class ArcadeLevelController {
      * @param mouseEvent is what the player's mouse doing.
      * @param gameBoard is the gameplay window.
      */
-    public void mouseMoved(MouseEvent mouseEvent, ArcadeLevel gameBoard) {
+    public void mouseMoved(MouseEvent mouseEvent, TutorialLevelView gameBoard) {
         Point p = mouseEvent.getPoint();
         if(exitButtonRect != null && showPauseMenu) {
             if (exitButtonRect.contains(p) || continueButtonRect.contains(p) || restartButtonRect.contains(p) || muteButton.contains(p))
@@ -308,7 +309,7 @@ public class ArcadeLevelController {
      * @param gameBoard is the gameplay screen
      * @return the debug console object.
      */
-    public DebugConsole setDebugConsole(JFrame frame, Wall wall, ArcadeLevel gameBoard){
+    public DebugConsole setDebugConsole(JFrame frame, Wall wall, TutorialLevelView gameBoard){
         return model.setDebugConsole(frame,wall,gameBoard);
     }
 

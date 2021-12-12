@@ -19,8 +19,8 @@ package main.java.debugpanel;
 
 import main.java.ball.Ball;
 import main.java.level.Wall;
-import main.java.view.ArcadeLevel;
-import main.java.view.GameBoard;
+import main.java.view.GameBoardView;
+import main.java.view.TutorialLevelView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,8 +34,8 @@ public class DebugConsole extends JDialog implements WindowListener{
 
     private final JFrame owner;
     private final DebugPanel debugPanel;
-    private GameBoard gameBoard;
-    private ArcadeLevel arcadeLevel;
+    private GameBoardView gameBoard;
+    private TutorialLevelView arcadeLevel;
     private final Wall wall;
     private int type= 0;
 
@@ -47,7 +47,7 @@ public class DebugConsole extends JDialog implements WindowListener{
      * @param wall is the current wall object
      * @param gameBoard is the game board
      */
-    public DebugConsole(JFrame owner, Wall wall, GameBoard gameBoard){
+    public DebugConsole(JFrame owner, Wall wall, GameBoardView gameBoard){
 
         this.wall = wall;
         this.owner = owner;
@@ -68,7 +68,7 @@ public class DebugConsole extends JDialog implements WindowListener{
      * @param wall is the current wall object
      * @param arcadeLevel is the game board
      */
-    public DebugConsole(JFrame owner, Wall wall, ArcadeLevel arcadeLevel){
+    public DebugConsole(JFrame owner, Wall wall, TutorialLevelView arcadeLevel){
 
         this.wall = wall;
         this.owner = owner;

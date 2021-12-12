@@ -1,26 +1,9 @@
-/*
- *  Brick Destroy - A simple Arcade video game
- *   Copyright (C) 2017  Filippo Ranza
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 package main.java;
 
 
 
 import main.java.view.*;
-
+import main.java.view.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
@@ -32,8 +15,8 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     private static final String DEF_TITLE = "Brick Destroy";
 
-    public static GameBoard gameBoard;
-    private final ArcadeLevel arcadeLevel;
+    public static GameBoardView gameBoard;
+    private final TutorialLevelView arcadeLevel;
     private final HomeMenuView homeMenu;
 
 
@@ -47,8 +30,8 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         super();
         gaming = false;
         this.setLayout(new BorderLayout());
-        gameBoard = new GameBoard(this);
-        arcadeLevel = new ArcadeLevel(this);
+        gameBoard = new GameBoardView(this);
+        arcadeLevel = new TutorialLevelView(this);
         homeMenu = new HomeMenuView(this,new Dimension(500,500));
         this.add(homeMenu,BorderLayout.CENTER);
         this.setUndecorated(true);
@@ -106,7 +89,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
         this.dispose();
         this.remove(homeMenu);
-        Colour playercolour = new Colour();
+        ColourView playercolour = new ColourView();
         this.setUndecorated(false);
         this.addWindowFocusListener(this);
     }
@@ -117,7 +100,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     public void enableInfo(){
         this.dispose();
         this.remove(homeMenu);
-        Info info = new Info();
+        InfoView info = new InfoView();
         this.setUndecorated(false);
         this.addWindowFocusListener(this);
     }

@@ -4,16 +4,18 @@ import main.java.debugpanel.DebugConsole;
 import main.java.model.GameBoardModel;
 import main.java.GraphicsMain;
 import main.java.level.Wall;
-import main.java.view.GameBoard;
+import main.java.view.GameBoardView;
+import main.java.model.GameBoardModel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-import static main.java.model.ArcadeLevelModel.wall;
-import static main.java.view.GameBoard.*;
+
+import static main.java.view.GameBoardView.*;
 import static main.java.model.GameBoardModel.*;
+import static main.java.view.GameBoardView.gameTimer;
 
 public class GameBoardController {
     public static int test=0;
@@ -24,12 +26,11 @@ public class GameBoardController {
     public void move(){
         wall.move();
     }
-
     /**
      * This method is to create the window created at the middle of player screen.
      * @param board is the window that need to be set
      */
-    public void initialize(GameBoard board){
+    public void initialize(GameBoardView board){
         board.setPreferredSize(new Dimension(model.getDefWidth(),550));
         board.setFocusable(true);
         board.requestFocusInWindow();
@@ -37,19 +38,17 @@ public class GameBoardController {
         board.addMouseListener(board);
         board.addMouseMotionListener(board);
     }
-
     /**
      * This method is to move the player to the left.
      */
     public void playerMoveLeft(){
-        Wall.player.moveLeft();
+        wall.player.moveLeft();
     }
-
     /**
      * This method is to move the player to the right.
      */
     public void playerMoveRight(){
-        Wall.player.moveRight();
+        wall.player.moveRight();
     }
     /**
      * This method is to check the condition of the game play.
@@ -57,7 +56,7 @@ public class GameBoardController {
      *
      * @param gameBoard is the game play window
      */
-    public void check(GameBoard gameBoard){
+    public void check(GameBoardView gameBoard){
         if(wall.isBallLost()){
             if(wall.ballEnd()){
                 wall.wallReset();
@@ -72,6 +71,7 @@ public class GameBoardController {
         else if(wall.isDone()){
             if(wall.hasLevel()){
                 stopTime();
+                model.doneLevel();
                 model.writeRecord();
                 gameTimer.stop();
                 wall.ballReset();
@@ -92,6 +92,7 @@ public class GameBoardController {
 
 
 
+
     /**
      * This is a getter method which will return the current brick count of the wall.
      *
@@ -108,7 +109,6 @@ public class GameBoardController {
     public int getBallCount(){
         return wall.getBallCount();
     }
-
     /**
      * This method is to get the current high score from the high score file.
      * @return the high score
@@ -170,7 +170,7 @@ public class GameBoardController {
      * @param keyEvent is the key that the player pressed.
      * @param gameBoard is the gameplay window,
      */
-    public void keyPressed(KeyEvent keyEvent, GameBoard gameBoard) {
+    public void keyPressed(KeyEvent keyEvent, GameBoardView gameBoard) {
 
         switch(keyEvent.getKeyCode()){
             case KeyEvent.VK_LEFT:
@@ -208,7 +208,7 @@ public class GameBoardController {
                 if(keyEvent.isAltDown() && keyEvent.isShiftDown())
                     debugConsole.setVisible(true);
             default:
-                Wall.player.stop();
+                wall.player.stop();
         }
     }
     /**
@@ -223,7 +223,7 @@ public class GameBoardController {
      * @param mouseEvent is the player's mouse progress.
      * @param gameBoard is the gameplay window.
      */
-    public void mouseClicked(MouseEvent mouseEvent,GameBoard gameBoard) {
+    public void mouseClicked(MouseEvent mouseEvent,GameBoardView gameBoard) {
         Point p = mouseEvent.getPoint();
         if (!showPauseMenu)
             return;
@@ -266,7 +266,7 @@ public class GameBoardController {
      * @param mouseEvent is what the player's mouse doing.
      * @param gameBoard is the gameplay window.
      */
-    public void mouseMoved(MouseEvent mouseEvent,GameBoard gameBoard) {
+    public void mouseMoved(MouseEvent mouseEvent,GameBoardView gameBoard) {
         Point p = mouseEvent.getPoint();
         if(exitButtonRect != null && showPauseMenu) {
             if (exitButtonRect.contains(p) || continueButtonRect.contains(p) || restartButtonRect.contains(p) || muteButton.contains(p))
@@ -299,7 +299,6 @@ public class GameBoardController {
     public Wall getWall(){
         return model.getWall();
     }
-
     /**
      * This method is to set debug console constructor.
      *
@@ -308,12 +307,10 @@ public class GameBoardController {
      * @param gameBoard is the gameplay screen
      * @return the debug console object.
      */
-    public DebugConsole setDebugConsole(JFrame frame, Wall wall, GameBoard gameBoard){
+    public DebugConsole setDebugConsole(JFrame frame, Wall wall, GameBoardView gameBoard){
         return model.setDebugConsole(frame,wall,gameBoard);
     }
-    public static void setPauseMenu(){
-        showPauseMenu=true;
-    }
+
 
 
 
