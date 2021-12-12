@@ -1,5 +1,6 @@
 package main.java.scoring;
 
+import javax.swing.*;
 import java.io.*;
 
 public class HighScore {
@@ -28,17 +29,17 @@ public class HighScore {
 
         try {
             //format ss
-
             readFile = new FileReader(path1);
             reader = new BufferedReader(readFile);
-            return Integer.parseInt(reader.readLine());
+            String temp = reader.readLine();
+            return Integer.parseInt(temp.split(":")[0]);
         } catch (Exception e) {
             return 0;
         }
         finally {
             try {
                 if(reader!=null)
-                reader.close();
+                    reader.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -54,8 +55,8 @@ public class HighScore {
         File scoreFile;
         if (score < highScore){
             highScore = score;
-            latest = String.valueOf(highScore);
-
+            String name = JOptionPane.showInputDialog("You set a new high score. What is your name?");
+            latest = highScore +":"+name;
             scoreFile = new File(path1);
 
             FileWriter writeFile;
