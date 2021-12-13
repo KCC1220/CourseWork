@@ -61,7 +61,6 @@ public class HighScore {
 
             FileWriter writeFile;
             BufferedWriter writer = null;
-            System.out.println(latest);
             try {
                 writeFile = new FileWriter(scoreFile);
                 writer = new BufferedWriter(writeFile);
